@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<flex-config xmlns="http://www.adobe.com/2006/flex-config">
+  <output>D:\CJ docs\programming\AS3\dev\Rusher\SVN\trunk\.\bin\Rusher.swc</output>
+  <use-network>true</use-network>
+  <target-player>11.0</target-player>
+  <warnings>true</warnings>
+  <benchmark>false</benchmark>
+  <compiler>
+    <accessible>false</accessible>
+    <allow-source-path-overlap>false</allow-source-path-overlap>
+    <optimize>true</optimize>
+    <strict>true</strict>
+    <es>false</es>
+    <show-actionscript-warnings>true</show-actionscript-warnings>
+    <show-binding-warnings>true</show-binding-warnings>
+    <show-unused-type-selector-warnings>true</show-unused-type-selector-warnings>
+    <use-resource-bundle-metadata>true</use-resource-bundle-metadata>
+    <verbose-stacktraces>false</verbose-stacktraces>
+    <source-path>
+      <path-element>d:\cj docs\programming\as3\dev\rusher\svn\trunk\src</path-element>
+    </source-path>
+    <library-path>
+      <path-element>d:\cj docs\programming\as3\dev\rusher\svn\trunk\libs\as3-signals-v0.9-beta.swc</path-element>
+      <path-element>d:\cj docs\programming\as3\dev\rusher\svn\trunk\libs\box2dflashas3_2_1a.swc</path-element>
+      <path-element>d:\cj docs\programming\as3\dev\rusher\svn\trunk\libs\greensock.swc</path-element>
+      <path-element>d:\cj docs\programming\as3\dev\rusher\svn\trunk\libs\starling-e761589.swc</path-element>
+      <path-element>d:\cj docs\programming\as3\dev\rusher\svn\trunk\libs\swiftsuspenders-v2.0.0.swc</path-element>
+    </library-path>
+    <external-library-path append="true">
+      <path-element>d:\cj docs\programming\as3\dev\rusher\svn\trunk\libs\as3-signals-v0.9-beta.swc</path-element>
+      <path-element>d:\cj docs\programming\as3\dev\rusher\svn\trunk\libs\box2dflashas3_2_1a.swc</path-element>
+      <path-element>d:\cj docs\programming\as3\dev\rusher\svn\trunk\libs\starling-e761589.swc</path-element>
+      <path-element>d:\cj docs\programming\as3\dev\rusher\svn\trunk\libs\greensock.swc</path-element>
+      <path-element>d:\cj docs\programming\as3\dev\rusher\svn\trunk\libs\swiftsuspenders-v2.0.0.swc</path-element>
+    </external-library-path>
+  </compiler>
+  <include-classes>
+    <class>idv.cjcat.rusher.Rusher</class>
+    <class>idv.cjcat.rusher.box2d.Box2DBody</class>
+    <class>idv.cjcat.rusher.box2d.Box2DBodyDef</class>
+    <class>idv.cjcat.rusher.box2d.Box2DBodyNode</class>
+    <class>idv.cjcat.rusher.box2d.Box2DBodyType</class>
+    <class>idv.cjcat.rusher.box2d.Box2DContact</class>
+    <class>idv.cjcat.rusher.box2d.Box2DContactListener</class>
+    <class>idv.cjcat.rusher.box2d.Box2DDebugDraw</class>
+    <class>idv.cjcat.rusher.box2d.Box2DDebugDrawFlag</class>
+    <class>idv.cjcat.rusher.box2d.Box2DDistanceJoint</class>
+    <class>idv.cjcat.rusher.box2d.Box2DGearJoint</class>
+    <class>idv.cjcat.rusher.box2d.Box2DLineJoint</class>
+    <class>idv.cjcat.rusher.box2d.Box2DPrismaticJoint</class>
+    <class>idv.cjcat.rusher.box2d.Box2DPulleyJoint</class>
+    <class>idv.cjcat.rusher.box2d.Box2DRayCaster</class>
+    <class>idv.cjcat.rusher.box2d.Box2DRevoluteJoint</class>
+    <class>idv.cjcat.rusher.box2d.Box2DShapeCreator</class>
+    <class>idv.cjcat.rusher.box2d.Box2DTargetPointJoint</class>
+    <class>idv.cjcat.rusher.box2d.Box2DWorld</class>
+    <class>idv.cjcat.rusher.box2d.Box2DWorldPrismaticJoint</class>
+    <class>idv.cjcat.rusher.box2d.Box2DWorldRevoluteJoint</class>
+    <class>idv.cjcat.rusher.box2d.IBox2DContact</class>
+    <class>idv.cjcat.rusher.box2d.IBox2DContactListener</class>
+    <class>idv.cjcat.rusher.box2d.IBox2DContactPostSolver</class>
+    <class>idv.cjcat.rusher.box2d.IBox2DContactPreSolver</class>
+    <class>idv.cjcat.rusher.box2d.IBox2DGearJointTarget</class>
+    <class>idv.cjcat.rusher.box2d.IBox2DShapeCreator</class>
+    <class>idv.cjcat.rusher.clock.Clock</class>
+    <class>idv.cjcat.rusher.command.Command</class>
+    <class>idv.cjcat.rusher.command.CommandList</class>
+    <class>idv.cjcat.rusher.command.CommandManager</class>
+    <class>idv.cjcat.rusher.command.CommandNode</class>
+    <class>idv.cjcat.rusher.command.CompositeCommand</class>
+    <class>idv.cjcat.rusher.command.ParallelCommand</class>
+    <class>idv.cjcat.rusher.command.SerialCommand</class>
+    <class>idv.cjcat.rusher.command.greensock.TweenLiteFrom</class>
+    <class>idv.cjcat.rusher.command.greensock.TweenLiteTo</class>
+    <class>idv.cjcat.rusher.command.greensock.TweenMaxFrom</class>
+    <class>idv.cjcat.rusher.command.greensock.TweenMaxTo</class>
+    <class>idv.cjcat.rusher.command.greensock.TweenNanoFrom</class>
+    <class>idv.cjcat.rusher.command.greensock.TweenNanoTo</class>
+    <class>idv.cjcat.rusher.command.utils.Dummy</class>
+    <class>idv.cjcat.rusher.command.utils.Trace</class>
+    <class>idv.cjcat.rusher.command.utils.Wait</class>
+    <class>idv.cjcat.rusher.core.BasicEngine</class>
+    <class>idv.cjcat.rusher.core.Engine</class>
+    <class>idv.cjcat.rusher.core.Entity</class>
+    <class>idv.cjcat.rusher.core.EntityIterator</class>
+    <class>idv.cjcat.rusher.core.EntityList</class>
+    <class>idv.cjcat.rusher.core.EntityManager</class>
+    <class>idv.cjcat.rusher.core.EntityNode</class>
+    <class>idv.cjcat.rusher.core.IComponent</class>
+    <class>idv.cjcat.rusher.core.IDisposable</class>
+    <class>idv.cjcat.rusher.core.IEngine</class>
+    <class>idv.cjcat.rusher.core.IEntity</class>
+    <class>idv.cjcat.rusher.core.IEntityCollection</class>
+    <class>idv.cjcat.rusher.core.IEntityIterator</class>
+    <class>idv.cjcat.rusher.core.IEntityManager</class>
+    <class>idv.cjcat.rusher.core.ISystem</class>
+    <class>idv.cjcat.rusher.core.ISystemManager</class>
+    <class>idv.cjcat.rusher.core.SystemManager</class>
+    <class>idv.cjcat.rusher.output.Console</class>
+    <class>idv.cjcat.rusher.render2d.Camera</class>
+    <class>idv.cjcat.rusher.render2d.Layer</class>
+    <class>idv.cjcat.rusher.render2d.Renderer2D</class>
+    <class>idv.cjcat.rusher.starling.StarlingCamera</class>
+    <class>idv.cjcat.rusher.starling.StarlingCanvas</class>
+    <class>idv.cjcat.rusher.starling.StarlingLayer</class>
+    <class>idv.cjcat.rusher.starling.StarlingRenderer</class>
+    <class>idv.cjcat.rusher.state.State</class>
+    <class>idv.cjcat.rusher.state.StateMachine</class>
+    <class>idv.cjcat.rusher.state.StateSystem</class>
+    <class>idv.cjcat.rusher.ui.Key</class>
+    <class>idv.cjcat.rusher.ui.Keyboard</class>
+    <class>idv.cjcat.rusher.ui.Mouse</class>
+    <class>idv.cjcat.rusher.utils.ObjectPool</class>
+    <class>idv.cjcat.rusher.utils.RusherMath</class>
+    <class>idv.cjcat.rusher.utils.geom.Vec2D</class>
+    <class>idv.cjcat.rusher.utils.geom.Vec2DPool</class>
+  </include-classes>
+</flex-config>
