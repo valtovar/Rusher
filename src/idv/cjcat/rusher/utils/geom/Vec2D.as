@@ -25,24 +25,28 @@ package idv.cjcat.rusher.utils.geom {
 		private var _x:Number;
 		private var _y:Number;
 		
-		public function Vec2D(x:Number = 0, y:Number = 0) {
+		public function Vec2D(x:Number = 0, y:Number = 0)
+    {
 			_x = x;
 			_y = y;
 		}
 		
 		public function get x():Number { return _x; }
-		public function set x(value:Number):void {
+		public function set x(value:Number):void
+    {
 			_x = value;
 			onChange.dispatch(this);
 		}
 		
 		public function get y():Number { return _y; }
-		public function set y(value:Number):void {
+		public function set y(value:Number):void
+    {
 			_y = value;
 			onChange.dispatch(this);
 		}
 		
-		public function clone():Vec2D {
+		public function clone():Vec2D
+    {
 			return new Vec2D(_x, _y);
 		}
 		
@@ -51,7 +55,8 @@ package idv.cjcat.rusher.utils.geom {
 		 * @param	vector
 		 * @return
 		 */
-		public function dot(vector:Vec2D):Number {
+		public function dot(vector:Vec2D):Number
+    {
 			return (_x * vector._x) + (_y * vector._y);
 		}
 		
@@ -60,13 +65,15 @@ package idv.cjcat.rusher.utils.geom {
 		 * @param	target
 		 * @return
 		 */
-		public function project(target:Vec2D):Vec2D {
+		public function project(target:Vec2D):Vec2D
+    {
 			var temp:Vec2D = clone();
 			temp.projectThis(target);
 			return temp;
 		}
 		
-		public function projectThis(target:Vec2D):void {
+		public function projectThis(target:Vec2D):void
+    {
 			var temp:Vec2D = Vec2DPool.get(target._x, target._y);
 			temp.length = 1;
 			temp.length = dot(temp);
@@ -81,7 +88,8 @@ package idv.cjcat.rusher.utils.geom {
 		 * @param	useRadian
 		 * @return The rotated clone vector.
 		 */
-		public function rotate(angle:Number, useRadian:Boolean = false):Vec2D {
+		public function rotate(angle:Number, useRadian:Boolean = false):Vec2D
+    {
 			var temp:Vec2D = new Vec2D(_x, _y);
 			temp.rotateThis(angle, useRadian);
 			return temp;
@@ -92,7 +100,8 @@ package idv.cjcat.rusher.utils.geom {
 		 * @param	angle
 		 * @param	useRadian
 		 */
-		public function rotateThis(angle:Number, useRadian:Boolean = false):void {
+		public function rotateThis(angle:Number, useRadian:Boolean = false):void
+    {
 			if (!useRadian) angle = angle * RusherMath.DEGREE_TO_RADIAN;
 			var originalX:Number = _x;
 			_x = originalX * Math.cos(angle) - _y * Math.sin(angle);
@@ -105,7 +114,8 @@ package idv.cjcat.rusher.utils.geom {
 		 * Unit vector.
 		 * @return
 		 */
-		public function unitVec():Vec2D {
+		public function unitVec():Vec2D
+    {
 			if (length == 0) return new Vec2D();
 			var length_inv:Number = 1 / length;
 			return new Vec2D(_x * length_inv, _y * length_inv);
@@ -114,10 +124,12 @@ package idv.cjcat.rusher.utils.geom {
 		/**
 		 * Vector length.
 		 */
-		public function get length():Number {
+		public function get length():Number
+    {
 			return Math.sqrt(_x * _x + _y * _y);
 		}
-		public function set length(value:Number):void {
+		public function set length(value:Number):void
+    {
 			if ((_x == 0) && (_y == 0)) return;
 			var factor:Number = value / length;
 			
@@ -132,7 +144,8 @@ package idv.cjcat.rusher.utils.geom {
 		 * @param	x
 		 * @param	y
 		 */
-		public function set(x:Number, y:Number):void {
+		public function set(x:Number, y:Number):void
+    {
 			_x = x;
 			_y = y;
 			
@@ -143,7 +156,8 @@ package idv.cjcat.rusher.utils.geom {
 		 * The angle between the vector and the positive x axis in degrees.
 		 */
 		public function get angle():Number { return Math.atan2(_y, _x) * RusherMath.RADIAN_TO_DEGREE; }
-		public function set angle(value:Number):void {
+		public function set angle(value:Number):void
+    {
 			var originalLength:Number = length;
 			var rad:Number = value * RusherMath.DEGREE_TO_RADIAN;
 			_x = originalLength * Math.cos(rad);
@@ -151,7 +165,8 @@ package idv.cjcat.rusher.utils.geom {
 			onChange.dispatch(this);
 		}
 		
-		public function toString():String {
+		public function toString():String
+    {
 			return "[Vec2D" + " x=" + _x + " y=" + _y + "]";
 		}
 	}

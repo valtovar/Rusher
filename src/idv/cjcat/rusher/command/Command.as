@@ -1,46 +1,25 @@
 package idv.cjcat.rusher.command 
 {
-    import idv.cjcat.rusher.core.IDisposable;
-    import org.osflash.signals.ISignal;
-    import org.osflash.signals.Signal;
-    import org.swiftsuspenders.Injector;
+  import idv.cjcat.rusher.engine.RusherObject;
+  import org.swiftsuspenders.Injector;
+  
+  public class Command extends RusherObject
+  {
+    /** @private */
+    internal var isComplete:Boolean;
     
-    public class Command implements IDisposable
+    public function Command()
+    { }
+    
+    public function execute():void
+    { }
+    
+    public function update(dt:Number):void
+    { }
+    
+    protected final function complete():void
     {
-        private var _onComplete:ISignal = new Signal(Command);
-        public function get onComplete():ISignal { return _onComplete; }
-        
-        public function Command()
-        {
-            
-        }
-        
-        /**
-         * @private
-         */
-        internal function injectChildren(injector:Injector):void
-        {
-            
-        }
-        
-        public function execute():void
-        {
-            
-        }
-        
-        public function update(dt:Number):void
-        {
-            
-        }
-        
-        public final function complete():void
-        {
-            onComplete.dispatch(this);
-        }
-        
-        public function dispose():void
-        {
-            
-        }
+      isComplete = true;
     }
+  }
 }

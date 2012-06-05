@@ -1,60 +1,49 @@
 package idv.cjcat.rusher.command 
 {
-    import idv.cjcat.rusher.core.ISystem;
-    import idv.cjcat.rusher.clock.Clock;
-    import org.swiftsuspenders.Injector;
+  import idv.cjcat.rusher.data.InList;
+  import idv.cjcat.rusher.data.InListIterator;
+  import idv.cjcat.rusher.engine.System;
+  
+  public final class CommandManager extends System
+  {
+    private var commands_:InList = new InList();
     
-    public final class CommandManager implements ISystem
+    public function CommandManager()
+    { }
+    
+    public function execute(command:Command):void
     {
-        public function CommandManager()
-        {
-            
-        }
-        
-        private var _injector:Injector
-        private var _clock:Clock
-        private var _commands:CommandList;
-        [Inject]
-        public function inject(injector:Injector, clock:Clock):void
-        {
-            _injector = injector;
-            _clock = clock;
-            
-            _commands = new CommandList();
-        }
-        
-        public function execute(command:Command):void
-        {
-            _injector.injectInto(command);
-            command.injectChildren(_injector);
-            _commands.add(command);
-        }
-        
-        public function onAdd():void
-        {
-            _clock.add(update);
-        }
-        
-        private function update(dt:Number):void
-        {
-            var node:CommandNode = _commands.first;
-            if (!node) return;
-            
-            while (node)
-            {
-                node.command.update(dt);
-                node = node.next;
-            }
-        }
-        
-        public function dispose():void
-        {
-            _clock.remove(update);
-            
-            _injector = null;
-            _clock = null;
-            
-            _commands = null;
-        }
+      //lower completion flag
+      command.isComplete = false;
+      
+      //set up command injector
+      command.setInjector(getInjector());
+      getInjector().injectInto(command);
+      
+      //execute command
+      command.execute();
+      
+      //command not complete after execution
+      if (!command.isComplete)
+      {
+        commands_.add(command);
+      }
     }
+    
+    override public function update(dt:Number):void
+    {
+      var iter:InListIterator = commands_.getIterator();
+      var command:Command;
+      while (command = iter.data())
+      {
+        //update command
+        command.update(dt);
+        
+        //command complete, remove
+        if (command.isComplete) iter.remove();
+        //command not complete, next
+        else iter.next();
+      }
+    }
+  }
 }
