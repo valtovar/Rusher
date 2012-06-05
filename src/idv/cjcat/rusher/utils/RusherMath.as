@@ -14,7 +14,8 @@ package idv.cjcat.rusher.utils {
          * @param    upperBound
          * @return
          */
-        public static function clamp(input:Number, lowerBound:Number, upperBound:Number):Number {
+        public static function clamp(input:Number, lowerBound:Number, upperBound:Number):Number
+        {
             if (input < lowerBound) return lowerBound;
             if (input > upperBound) return upperBound;
             return input;
@@ -29,7 +30,8 @@ package idv.cjcat.rusher.utils {
          * @param    x3
          * @return
          */
-        public static function interpolate(x1:Number, y1:Number, x2:Number, y2:Number, x3:Number):Number {
+        public static function lerp(x1:Number, y1:Number, x2:Number, y2:Number, x3:Number):Number
+        {
             return y1 - ((y1 - y2) * (x1 - x3) / (x1 - x2));
         }
         
@@ -39,12 +41,14 @@ package idv.cjcat.rusher.utils {
          * @param    value1
          * @param    value2
          */
-        public static function mod(value1:Number, value2:Number):Number {
+        public static function mod(value1:Number, value2:Number):Number
+        {
             var remainder:Number = value1 % value2;
             return (remainder < 0)?(remainder + value2):(remainder);
         }
         
-        public static function randomFloor(num:Number):int {
+        public static function randomFloor(num:Number):int
+        {
             var floor:int = num | 0;
             return floor + int(((num - floor) > Math.random())?(1):(0));
         }
