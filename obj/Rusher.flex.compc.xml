@@ -36,7 +36,6 @@
   </compiler>
   <include-classes>
     <class>idv.cjcat.rusher.Rusher</class>
-    <class>idv.cjcat.rusher.rusher_internal</class>
     <class>idv.cjcat.rusher.command.Command</class>
     <class>idv.cjcat.rusher.command.CommandManager</class>
     <class>idv.cjcat.rusher.command.CompositeCommand</class>
@@ -64,13 +63,11 @@
     <class>idv.cjcat.rusher.engine.ISystem</class>
     <class>idv.cjcat.rusher.engine.RusherObject</class>
     <class>idv.cjcat.rusher.engine.System</class>
+    <class>idv.cjcat.rusher.input.Input</class>
     <class>idv.cjcat.rusher.input.Key</class>
-    <class>idv.cjcat.rusher.input.Keyboard</class>
-    <class>idv.cjcat.rusher.input.Mouse</class>
     <class>idv.cjcat.rusher.output.Console</class>
-    <class>idv.cjcat.rusher.render2d.Camera</class>
-    <class>idv.cjcat.rusher.render2d.Layer</class>
     <class>idv.cjcat.rusher.render2d.Renderer2D</class>
+    <class>idv.cjcat.rusher.render2d.RenderTarget2D</class>
     <class>idv.cjcat.rusher.state.State</class>
     <class>idv.cjcat.rusher.state.StateMachine</class>
     <class>idv.cjcat.rusher.state.StateMachineCollector</class>
