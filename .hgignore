@@ -1,2 +1,5 @@
 syntax: glob
 bin/Rusher.swc
+obj/*
+Rusher.flex.compc.xml
+Rusher.lxml

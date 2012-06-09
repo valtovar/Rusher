@@ -71,12 +71,12 @@ package idv.cjcat.rusher.engine
     }
     
     private var entityCounter_:int = 0;
-    public function createEntity(name:String = ""):Entity
+    public function createEntity(name:String = null):Entity
     {
       //check duplicate entity name
       if (injector_.satisfies(Entity, name)) throw new Error("Entity named\"" + name + "\" already exists.");
       
-      if (name == "") name = "entity" + entityCounter_++;
+      if (!name) name = "entity" + entityCounter_++;
       
       //add entity to engine
       var entity:Entity = new Entity(name);
