@@ -26,6 +26,10 @@ package idv.cjcat.rusher.render2d
     
     override public function onRemoved():void 
     {
+      if (displayObject_ && displayObject_.parent)
+      {
+        displayObject_.parent.removeChild(displayObject_);
+      }
       Renderer2D(getSystem(Renderer2D)).unregister(this);
     }
   }
