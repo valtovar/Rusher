@@ -33,6 +33,7 @@ package idv.cjcat.rusher.state
         //initialize current state
         currentState_.stateMachine = this;
         currentState_.setInjector(getInjector());
+        currentState_.getInjector().injectInto(currentState_);
         currentState_.enter();
         
         //make next state null
@@ -40,12 +41,22 @@ package idv.cjcat.rusher.state
       }
       
       //update current state
-      currentState_.update(dt);
+      if (currentState_) currentState_.update(dt);
     }
     
     public function setState(nextState:State):void
     {
       nextState_ = nextState;
+    }
+    
+    /** @private */
+    internal function dispose():void
+    {
+      if (currentState_)
+      {
+        currentState_.exit();
+        currentState_ = null;
+      }
     }
 	}
 }

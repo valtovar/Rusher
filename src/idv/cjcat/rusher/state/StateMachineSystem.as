@@ -33,7 +33,15 @@ package idv.cjcat.rusher.state
     }
     
     public function onRemoved():void
-    { }
+    {
+      var stateMachineIter:InListIterator = stateMachines_.getIterator();
+      var stateMachine:StateMachine;
+      while (stateMachine = stateMachineIter.data())
+      {
+        stateMachine.dispose();
+        stateMachineIter.next();
+      }
+    }
     
     public function update(dt:Number):void
     {

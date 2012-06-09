@@ -26,6 +26,14 @@ package idv.cjcat.rusher.state
     
     public function onRemoved():void
     {
+      var iter:InListIterator = stateMachines_.getIterator();
+      var stateMachine:StateMachine;
+      while (stateMachine = iter.data())
+      {
+        stateMachine.dispose();
+        iter.next();
+      }
+      
       var system:StateMachineSystem = getSystem(StateMachineSystem);
       system.unregister(this);
     }
@@ -35,7 +43,6 @@ package idv.cjcat.rusher.state
     {
       var iter:InListIterator = stateMachines_.getIterator();
       var stateMachine:StateMachine;
-      
       while (stateMachine = iter.data())
       {
         stateMachine.update(dt);
