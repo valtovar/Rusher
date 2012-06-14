@@ -1,8 +1,6 @@
 package idv.cjcat.rusher.state 
 {
   import idv.cjcat.rusher.engine.RusherObject;
-  import org.osflash.signals.ISignal;
-  import org.osflash.signals.Signal;
 	
 	public class StateMachine extends RusherObject
 	{

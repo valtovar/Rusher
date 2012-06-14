@@ -1,27 +1,11 @@
 package idv.cjcat.rusher.utils.geom {
     import idv.cjcat.rusher.utils.RusherMath;
-    import org.osflash.signals.ISignal;
-    import org.osflash.signals.Signal;
 	
 	/**
 	 * 2D Vector with common vector operations.
 	 */
-	public final class Vec2D {
-		
-		
-		//signals
-		//------------------------------------------------------------------------------------------------
-		
-		private var _onChange:ISignal = new Signal(Vec2D);
-		/**
-		 * Signature: (vector:Vec2D)
-		 */
-		public function get onChange():ISignal { return _onChange; }
-		
-		//------------------------------------------------------------------------------------------------
-		//end of signals
-		
-		
+	public final class Vec2D
+  {
 		private var _x:Number;
 		private var _y:Number;
 		
@@ -35,14 +19,12 @@ package idv.cjcat.rusher.utils.geom {
 		public function set x(value:Number):void
     {
 			_x = value;
-			onChange.dispatch(this);
 		}
 		
 		public function get y():Number { return _y; }
 		public function set y(value:Number):void
     {
 			_y = value;
-			onChange.dispatch(this);
 		}
 		
 		public function clone():Vec2D
@@ -106,8 +88,6 @@ package idv.cjcat.rusher.utils.geom {
 			var originalX:Number = _x;
 			_x = originalX * Math.cos(angle) - _y * Math.sin(angle);
 			_y = originalX * Math.sin(angle) + _y * Math.cos(angle);
-			
-			onChange.dispatch(this);
 		}
 		
 		/**
@@ -135,8 +115,6 @@ package idv.cjcat.rusher.utils.geom {
 			
 			_x = _x * factor;
 			_y = _y * factor;
-			
-			onChange.dispatch(this);
 		}
 		
 		/**
@@ -148,8 +126,6 @@ package idv.cjcat.rusher.utils.geom {
     {
 			_x = x;
 			_y = y;
-			
-			onChange.dispatch(this);
 		}
 		
 		/**
@@ -162,7 +138,6 @@ package idv.cjcat.rusher.utils.geom {
 			var rad:Number = value * RusherMath.DEGREE_TO_RADIAN;
 			_x = originalLength * Math.cos(rad);
 			_y = originalLength * Math.sin(rad);
-			onChange.dispatch(this);
 		}
 		
 		public function toString():String

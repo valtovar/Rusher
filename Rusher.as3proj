@@ -50,7 +50,6 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <element path="libs\as3-signals-v0.9-BETA.swc" />
     <element path="libs\Box2DFlashAS3_2_1a.swc" />
     <element path="libs\greensock.swc" />
     <element path="libs\Starling-e761589.swc" />
