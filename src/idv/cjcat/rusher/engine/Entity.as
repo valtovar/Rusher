@@ -11,11 +11,17 @@ package idv.cjcat.rusher.engine
     private var name_:String;
     public function getName():String { return name_; }
     
-    private var onMounted_:ISignal = new Signal(Entity);
-    public function get onMounted():ISignal { return onMounted_; }
+    private var onMountedOnto_:ISignal = new Signal(Entity);
+    public function get onMountedOnto():ISignal { return onMountedOnto_; }
     
-    private var onUnmounted_:ISignal = new Signal(Entity);
-    public function get onUnmounted():ISignal { return onUnmounted_; }
+    private var onChildMounted_:ISignal = new Signal(Entity);
+    public function get onChildMounted():ISignal { return onChildMounted_; }
+    
+    private var onUnmountedFrom_:ISignal = new Signal(Entity);
+    public function get onUnmountedFrom():ISignal { return onUnmountedFrom_; }
+    
+    private var onChildUnmounted_:ISignal = new Signal(Entity);
+    public function get onChildUnmounted():ISignal { return onChildUnmounted_; }
     
     
     private var parent_:Entity = null;
@@ -81,25 +87,37 @@ package idv.cjcat.rusher.engine
     
     public function mount(child:Entity):Entity
     {
-      if (children_[name]) throw new Error("Entity named \"" + child.name_ + "\" already mounted.");
+      if (children_[child.name_]) throw new Error("Entity named \"" + child.name_ + "\" already mounted.");
       if (child.parent_) throw new Error("Entity named \"" + child.name_ + "\" already mounted onto parent named \"" + child.parent_.name_ + "\"");
       
       //establish parent-child relation
       children_[child.name_] = child;
       child.parent_ = this;
       
-      onMounted_.dispatch(child);
+      //inform parent
+      onChildMounted.dispatch(child);
+      
+      //inform child
+      child.onMountedOnto.dispatch(this);
+      
+      return child;
     }
     
     public function unmount(child:Entity):Entity
     {
-      if (!children_[name]) throw new Error("Child entity named \"" + name + "\" not found.");
+      if (!children_[child.name_]) throw new Error("Child entity named \"" + child.name_ + "\" not found.");
       
-      onUnmounted_.dispatch(child);
+      //inform child
+      child.onUnmountedFrom.dispatch(this);
+      
+      //inform parent
+      onChildUnmounted.dispatch(child);
       
       //remove parent-child relation
       delete children_[child.name_];
       child.parent_ = null;
+      
+      return child;
     }
     
     public function destroy():void

@@ -1,112 +1,121 @@
 package idv.cjcat.rusher.component 
 {
+  import flash.geom.Matrix;
   import idv.cjcat.rusher.data.InList;
   import idv.cjcat.rusher.data.InListIterator;
   import idv.cjcat.rusher.engine.Component;
   import idv.cjcat.rusher.engine.Entity;
   import idv.cjcat.rusher.utils.geom.Vec2D;
+  import idv.cjcat.rusher.utils.RusherMath;
 	
   public class Transform2D extends Component
   {
+    private var version_:uint = 1;
+    private var matrixVersion_:uint = 0;
+    private var matrix_:Matrix = new Matrix();
+    
+    public function calculateMatrix():Matrix {
+      //early out
+      if (matrixVersion_ == version_ && !parent_) return matrix_;
+      
+      
+      //calculate matrix
+      matrix_.identity();
+      matrix_.scale(scaleX_, scaleY_);
+      matrix_.rotate(rotation_ * RusherMath.DEGREE_TO_RADIAN);
+      matrix_.translate(x_, y_);
+      
+      //concatenate parent
+      if (parent_)
+      {
+        matrix_.concat(parent_.calculateMatrix());
+      }
+      
+      matrixVersion_ = version_;
+      return matrix_;
+    }
     
     //position
-    private var localX_ :Number = 0;
-    private var globalX_:Number = 0;
-    private var localY_ :Number = 0;
-    private var globalY_:Number = 0;
-    public function get x():Number { return globalX_; }
-    public function set x(value:Number)
+    private var x_:Number;
+    private var y_:Number;
+    public function get x():Number { return x_; }
+    public function set x(value:Number):void
     {
-      globalX_ = localX_ = value;
-      updateChildren();
+      x_ = value;
+      ++version_;
     }
-    public function get y():Number { return globalY_; }
-    public function set y(value:Number)
+    public function get y():Number { return y_; }
+    public function set y(value:Number):void
     {
-      globalY_ = localY_ = value;
-      updateChildren();
+      y_ = value;
+      ++version_;
     }
     
     //rotation
-    private var localRotation_ :Number = 0;
-    private var globalRotation_:Number = 0;
-    public function get rotation():Number { return globalRotation_; }
+    private var rotation_ :Number = 0;
+    public function get rotation():Number { return rotation_; }
     public function set rotation(value:Number):void
     {
-      globalRotation_ = localRotation_ = value;
-      updateChildren();
+      rotation_ = value;
+      ++version_;
     }
     
     //scale
-    private var localScaleX_ :Number = 0;
-    private var globalScaleX_:Number = 0
-    private var localScaleY_ :Number = 0;
-    private var globalScaleY_:Number = 0;
-    public function get scaleX():Number { return globalScaleX_; }
-    public function set scaleX(value):Number
+    private var scaleX_:Number;
+    private var scaleY_:Number
+    public function get scaleX():Number { return scaleX_; }
+    public function set scaleX(value:Number):void
     {
-      globalScaleX_ = localScaleX_ = value;
-      updateChildren();
+      scaleX_ = value;
+      ++version_;
     }
-    public function get scaleY():Number { return globalScaleY_; }
-    public function set scaleY(value):Number
+    public function get scaleY():Number { return scaleY_; }
+    public function set scaleY(value:Number):void
     {
-      globalScaleY_ = localScaleY_ = value;
-      updateChildren();
+      scaleY_ = value;
+      ++version_;
     }
     
     public function Transform2D
     (
-      x:Number = 0, y:Number = 0, 
-      rotation:Number = 0, 
-      scaleX:Number = 1, scaleY:Number = 1
+      x:Number = 0.0, y:Number = 0.0, 
+      rotation:Number = 0.0, 
+      scaleX:Number = 1.0, scaleY:Number = 1.0
     )
     {
-      this.x = x;
-      this.y = y;
-      this.rotation = rotation;
-      this.scaleX = scaleX;
-      this.scaleY = scaleY;
+      x_ = x;
+      y_ = y;
+      rotation_ = rotation;
+      scaleX_ = scaleX;
+      scaleY_ = scaleY;
     }
     
     override public function onAdded():void 
     {
-      getOwner().onMounted.add(onMounted);
-      getOwner().onUnmounted.add(onUnmounted);
+      getOwner().onMountedOnto.add(onMountedOnto);
+      getOwner().onUnmountedFrom.add(onUnmountedFrom);
     }
     
     override public function onRemoved():void 
     {
-      getOwner().onMounted.remove(onMounted);
-      getOwner().onUnmounted.remove(onUnmounted);
+      getOwner().onMountedOnto.remove(onMountedOnto);
+      getOwner().onUnmountedFrom.remove(onUnmountedFrom);
     }
     
     
     //mounting
     //-------------------------------------------------------------------------
     
-    private var children_:InList = new InList();
+    private var parent_:Transform2D = null;
     
-    private function onMounted(child:Entity):void
+    private function onMountedOnto(parent:Entity):void
     {
-      children_.add(child.getComponent(Transform2D));
+      parent_ = parent.getComponent(Transform2D);
     }
     
-    private function onUnmounted(child:Entity):void
+    private function onUnmountedFrom(parent:Entity):void
     {
-      children_.remove(child.getComponent(Transform2D));
-    }
-    
-    private function updateChildren():void
-    {
-      var iter:InListIterator = children_.getIterator();
-      var child:Transform2D;
-      while (child = iter.data())
-      {
-        //TODO: MAAAAAAAAAAAAAAATH
-        
-        iter.next();
-      }
+      parent_ = null;
     }
     
     //-------------------------------------------------------------------------

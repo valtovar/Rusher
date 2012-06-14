@@ -1,6 +1,7 @@
 package idv.cjcat.rusher.render2d 
 {
   import flash.display.DisplayObject;
+  import flash.geom.Transform;
   import idv.cjcat.rusher.component.Transform2D;
   import idv.cjcat.rusher.data.InList;
   import idv.cjcat.rusher.data.InListIterator;
@@ -32,11 +33,9 @@ package idv.cjcat.rusher.render2d
         if (displayObject)
         {
           var transform:Transform2D = target.getSibling(Transform2D);
-          displayObject.x = transform.position.x;
-          displayObject.y = transform.position.y;
-          displayObject.rotation = transform.rotation;
-          displayObject.scaleX = transform.scale.x;
-          displayObject.scaleY = transform.scale.y;
+          var displayTransform:Transform = displayObject.transform;
+          displayTransform.matrix = transform.calculateMatrix();
+          displayObject.transform = displayTransform;
         }
         
         iter.next();
