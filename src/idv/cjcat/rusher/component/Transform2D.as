@@ -15,8 +15,10 @@ package idv.cjcat.rusher.component
     private var matrix_:Matrix = new Matrix();
     
     public function calculateMatrix():Matrix {
+      var owner:Entity = getOwner();
+      
       //early out
-      if (matrixVersion_ == version_ && !parent_) return matrix_;
+      if (matrixVersion_ == version_ && !owner.getParent()) return matrix_;
       
       
       //calculate matrix
@@ -26,9 +28,16 @@ package idv.cjcat.rusher.component
       matrix_.translate(x_, y_);
       
       //concatenate parent
-      if (parent_)
+      if (owner.getParent())
       {
-        matrix_.concat(parent_.calculateMatrix());
+        matrix_.concat
+        (
+          Transform2D
+          (
+            owner.getParent().getComponent(Transform2D)
+            
+          ).calculateMatrix()
+        );
       }
       
       matrixVersion_ = version_;
@@ -89,36 +98,5 @@ package idv.cjcat.rusher.component
       scaleX_ = scaleX;
       scaleY_ = scaleY;
     }
-    
-    override public function onAdded():void 
-    {
-      getOwner().onMountedOnto.add(onMountedOnto);
-      getOwner().onUnmountedFrom.add(onUnmountedFrom);
-    }
-    
-    override public function onRemoved():void 
-    {
-      getOwner().onMountedOnto.remove(onMountedOnto);
-      getOwner().onUnmountedFrom.remove(onUnmountedFrom);
-    }
-    
-    
-    //mounting
-    //-------------------------------------------------------------------------
-    
-    private var parent_:Transform2D = null;
-    
-    private function onMountedOnto(parent:Entity):void
-    {
-      parent_ = parent.getComponent(Transform2D);
-    }
-    
-    private function onUnmountedFrom(parent:Entity):void
-    {
-      parent_ = null;
-    }
-    
-    //-------------------------------------------------------------------------
-    //end of mounting
   }
 }

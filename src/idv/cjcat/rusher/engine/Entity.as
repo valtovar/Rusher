@@ -2,27 +2,12 @@ package idv.cjcat.rusher.engine
 {
   import flash.utils.Dictionary;
   import idv.cjcat.rusher.utils.construct;
-  import org.osflash.signals.ISignal;
-  import org.osflash.signals.Signal;
   import org.swiftsuspenders.Injector;
 	
   public class Entity extends RusherObject
   {
     private var name_:String;
     public function getName():String { return name_; }
-    
-    private var onMountedOnto_:ISignal = new Signal(Entity);
-    public function get onMountedOnto():ISignal { return onMountedOnto_; }
-    
-    private var onChildMounted_:ISignal = new Signal(Entity);
-    public function get onChildMounted():ISignal { return onChildMounted_; }
-    
-    private var onUnmountedFrom_:ISignal = new Signal(Entity);
-    public function get onUnmountedFrom():ISignal { return onUnmountedFrom_; }
-    
-    private var onChildUnmounted_:ISignal = new Signal(Entity);
-    public function get onChildUnmounted():ISignal { return onChildUnmounted_; }
-    
     
     private var parent_:Entity = null;
     public function getParent():Entity { return parent_; }
@@ -94,24 +79,12 @@ package idv.cjcat.rusher.engine
       children_[child.name_] = child;
       child.parent_ = this;
       
-      //inform parent
-      onChildMounted.dispatch(child);
-      
-      //inform child
-      child.onMountedOnto.dispatch(this);
-      
       return child;
     }
     
     public function unmount(child:Entity):Entity
     {
       if (!children_[child.name_]) throw new Error("Child entity named \"" + child.name_ + "\" not found.");
-      
-      //inform child
-      child.onUnmountedFrom.dispatch(this);
-      
-      //inform parent
-      onChildUnmounted.dispatch(child);
       
       //remove parent-child relation
       delete children_[child.name_];
