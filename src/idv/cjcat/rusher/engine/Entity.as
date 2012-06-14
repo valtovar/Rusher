@@ -2,13 +2,27 @@ package idv.cjcat.rusher.engine
 {
   import flash.utils.Dictionary;
   import idv.cjcat.rusher.utils.construct;
+  import org.osflash.signals.ISignal;
+  import org.osflash.signals.Signal;
   import org.swiftsuspenders.Injector;
 	
   public class Entity extends RusherObject
   {
     private var name_:String;
     public function getName():String { return name_; }
+    
+    private var onMounted_:ISignal = new Signal(Entity);
+    public function get onMounted():ISignal { return onMounted_; }
+    
+    private var onUnmounted_:ISignal = new Signal(Entity);
+    public function get onUnmounted():ISignal { return onUnmounted_; }
+    
+    
+    private var parent_:Entity = null;
+    public function getParent():Entity { return parent_; }
+    
     private var components_:Dictionary = new Dictionary();
+    private var children_:Dictionary = new Dictionary();
     
     public function getComponent(ComponentClass:Class):*
     {
@@ -59,8 +73,45 @@ package idv.cjcat.rusher.engine
       delete components_[ComponentClass];
     }
     
+    public function getChild(name:Entity):Entity
+    {
+      if (!children_[name]) throw new Error("Child entity named \"" + name + "\" not found.");
+      return children_[name];
+    }
+    
+    public function mount(child:Entity):Entity
+    {
+      if (children_[name]) throw new Error("Entity named \"" + child.name_ + "\" already mounted.");
+      if (child.parent_) throw new Error("Entity named \"" + child.name_ + "\" already mounted onto parent named \"" + child.parent_.name_ + "\"");
+      
+      //establish parent-child relation
+      children_[child.name_] = child;
+      child.parent_ = this;
+      
+      onMounted_.dispatch(child);
+    }
+    
+    public function unmount(child:Entity):Entity
+    {
+      if (!children_[name]) throw new Error("Child entity named \"" + name + "\" not found.");
+      
+      onUnmounted_.dispatch(child);
+      
+      //remove parent-child relation
+      delete children_[child.name_];
+      child.parent_ = null;
+    }
+    
     public function destroy():void
     {
+      //destroy all children first
+      for (var key:* in children_)
+      {
+        getEngine().destroyEntity(key);
+        delete children_[key];
+      }
+      
+      //and then destroy this entity itself
       getEngine().destroyEntity(getName());
     }
     
