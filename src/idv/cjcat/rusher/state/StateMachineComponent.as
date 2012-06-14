@@ -20,7 +20,7 @@ package idv.cjcat.rusher.state
       
       for (var i:int = 0, len:int = initStates_.length; i < len; ++i)
       {
-        add(new StateMachine(initStates_[i]));
+        add(new StateMachine(new initStates_[i]));
       }
     }
     
