@@ -1,6 +1,7 @@
 package idv.cjcat.rusher.component 
 {
   import flash.geom.Matrix;
+  import flash.geom.Point;
   import idv.cjcat.rusher.data.InList;
   import idv.cjcat.rusher.data.InListIterator;
   import idv.cjcat.rusher.engine.Component;
@@ -14,30 +15,48 @@ package idv.cjcat.rusher.component
     private var matrixVersion_:uint = 0;
     private var matrix_:Matrix = new Matrix();
     
+    public var inheritsScale:Boolean = true;
+    
     public function calculateMatrix():Matrix {
       var owner:Entity = getOwner();
       
       //early out
       if (matrixVersion_ == version_ && !owner.getParent()) return matrix_;
       
-      
-      //calculate matrix
+      //make identity
       matrix_.identity();
-      matrix_.scale(scaleX_, scaleY_);
-      matrix_.rotate(rotation_ * RusherMath.DEGREE_TO_RADIAN);
-      matrix_.translate(x_, y_);
       
-      //concatenate parent
+      //has parent
       if (owner.getParent())
       {
-        matrix_.concat
-        (
-          Transform2D
-          (
-            owner.getParent().getComponent(Transform2D)
-            
-          ).calculateMatrix()
-        );
+        var parentTransform:Transform2D = owner.getParent().getComponent(Transform2D);
+        var parentMatrix:Matrix = parentTransform.calculateMatrix();
+        
+        //inherits all parent transform
+        if (inheritsScale)
+        {
+          matrix_.scale(scaleX_, scaleY_);
+          matrix_.rotate(rotation_ * RusherMath.DEGREE_TO_RADIAN);
+          matrix_.translate(x_, y_);
+          matrix_.concat(parentMatrix);
+        }
+        //only inherits parent translation and rotation
+        else
+        {
+          var mountPoint:Point = parentMatrix.transformPoint(new Point(x_, y_));
+          
+          matrix_.scale(scaleX_, scaleY_);
+          matrix_.rotate((rotation_ + parentTransform.rotation_) * RusherMath.DEGREE_TO_RADIAN);
+          matrix_.translate(mountPoint.x, mountPoint.y);
+        }
+      }
+      else
+      //no parent
+      {
+        //calculate matrix normally
+        matrix_.scale(scaleX_, scaleY_);
+        matrix_.rotate(rotation_ * RusherMath.DEGREE_TO_RADIAN);
+        matrix_.translate(x_, y_);
       }
       
       matrixVersion_ = version_;
