@@ -4,7 +4,7 @@ package idv.cjcat.rusher.state
   import idv.cjcat.rusher.engine.Entity;
   import idv.cjcat.rusher.engine.IComponent;
 	
-  public class StateMachineComponent extends StateMachineCollector implements IComponent
+  public final class StateMachineComponent extends StateMachineCollector implements IComponent
   {
     private var initStates_:Array;
     

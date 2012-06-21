@@ -16,7 +16,6 @@ package idv.cjcat.rusher.state
     {
       stateMachines_.add(stateMachine);
       stateMachine.setInjector(getInjector());
-      getInjector().injectInto(stateMachine);
     }
     
     public function remove(stateMachine:StateMachine):void

@@ -1,7 +1,7 @@
 package idv.cjcat.rusher.engine 
 {
 	
-  public interface ISystem extends IInjectible
+  public interface ISystem
   {
     function onAdded():void;
     function onRemoved():void;

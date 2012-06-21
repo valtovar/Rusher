@@ -2,7 +2,7 @@ package idv.cjcat.rusher.state
 {
   import idv.cjcat.rusher.engine.RusherObject;
 	
-	public class StateMachine extends RusherObject
+	public final class StateMachine extends RusherObject
 	{
     private var inTransition_:Boolean = false;
     private var nextState_:State = null;

@@ -40,7 +40,6 @@ package idv.cjcat.rusher.engine
       injector.parentInjector.map(ComponentClass, getName()).toValue(component);
       
       //intialize component
-      component.setInjector(getInjector());
       components_[ComponentClass] = component;
       
       getInjector().injectInto(component);
@@ -60,7 +59,6 @@ package idv.cjcat.rusher.engine
       
       //remove component from entity
       component.onRemoved();
-      component.setInjector(null);
       delete components_[ComponentClass];
     }
     
