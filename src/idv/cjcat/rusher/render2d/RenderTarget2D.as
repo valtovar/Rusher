@@ -21,7 +21,7 @@ package idv.cjcat.rusher.render2d
     
     override public function onAdded():void 
     {
-      Renderer2D(getSystem(Renderer2D)).register(this);
+      Renderer2D(getInstance(Renderer2D)).register(this);
     }
     
     override public function onRemoved():void 
@@ -30,7 +30,7 @@ package idv.cjcat.rusher.render2d
       {
         displayObject_.parent.removeChild(displayObject_);
       }
-      Renderer2D(getSystem(Renderer2D)).unregister(this);
+      Renderer2D(getInstance(Renderer2D)).unregister(this);
     }
   }
 }

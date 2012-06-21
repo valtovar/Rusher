@@ -52,7 +52,7 @@ package idv.cjcat.rusher.engine
       //check system existence
       if (!injector_.satisfies(SystemClass)) throw new Error("System " + SystemClass + " not found.");
       
-      var system:System = getSystem(SystemClass);
+      var system:ISystem = getInstance(SystemClass);
       
       //dispose system
       system.onRemoved();
@@ -65,7 +65,7 @@ package idv.cjcat.rusher.engine
       injector_.unmap(SystemClass);
     }
     
-    public function getSystem(SystemClass:Class):*
+    public function getInstance(SystemClass:Class):*
     {
       return injector_.getInstance(SystemClass);
     }

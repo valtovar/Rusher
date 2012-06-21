@@ -81,7 +81,7 @@ package idv.cjcat.rusher.output
     override public function onAdded():void
     {
       stage_ = getInstance(Stage);
-      input_ = getSystem(Input);
+      input_ = getInstance(Input);
       
       buildView();
     }

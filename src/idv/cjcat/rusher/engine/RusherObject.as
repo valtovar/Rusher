@@ -17,20 +17,5 @@ package idv.cjcat.rusher.engine
       }
       return getInjector().getInstance(InstanceClass, name);
     }
-    
-    public function getEngine():Engine
-    {
-      return getInstance(Engine);
-    }
-    
-    public function getEntity(name:String):Entity
-    {
-      return getInstance(Entity, name);
-    }
-    
-    public function getSystem(SystemClass:Class):*
-    {
-      return ISystem(getInstance(SystemClass));
-    }
   }
 }

@@ -98,12 +98,12 @@ package idv.cjcat.rusher.engine
       //destroy all children first
       for (var key:* in children_)
       {
-        getEngine().destroyEntity(key);
+        getInstance(Engine).destroyEntity(key);
         delete children_[key];
       }
       
       //and then destroy this entity itself
-      getEngine().destroyEntity(getName());
+      getInstance(Engine).destroyEntity(getName());
     }
     
     /** @private */
