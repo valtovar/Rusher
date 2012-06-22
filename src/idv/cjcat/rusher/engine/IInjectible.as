@@ -6,5 +6,7 @@ package idv.cjcat.rusher.engine
   {
     function getInjector():Injector;
     function setInjector(injector:Injector):void;
+    function hasInstance(InstanceClass:Class, name:String = ""):Boolean;
+    function getInstance(InstanceClass:Class, name:String = ""):*;
   }
 }
