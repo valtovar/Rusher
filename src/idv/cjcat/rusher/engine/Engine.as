@@ -39,6 +39,7 @@ package idv.cjcat.rusher.engine
       
       //initialize system
       systems_.push(system);
+      system.setInjector(injector_);
       
       injector_.injectInto(system);
       system.onAdded();
@@ -58,6 +59,7 @@ package idv.cjcat.rusher.engine
       
       //remove system from engine
       systems_.splice(systems_.indexOf(system), 1);
+      system.setInjector(null);
       
       //unmap injector
       injector_.unmap(SystemClass);
