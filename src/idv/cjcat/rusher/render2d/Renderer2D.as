@@ -32,7 +32,7 @@ package idv.cjcat.rusher.render2d
         var displayObject:DisplayObject = target.displayObject;
         if (displayObject)
         {
-          var transform:Transform2D = target.getSibling(Transform2D);
+          var transform:Transform2D = target.getInstance(Transform2D);
           var displayTransform:Transform = displayObject.transform;
           displayTransform.matrix = transform.calculateMatrix();
           displayObject.transform = displayTransform;
