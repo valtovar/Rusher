@@ -2,7 +2,7 @@ package idv.cjcat.rusher.engine
 {
   import org.swiftsuspenders.Injector;
   
-  public interface IInjectible 
+  public interface IInjectorHolder 
   {
     function getInjector():Injector;
     function setInjector(injector:Injector):void;

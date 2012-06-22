@@ -3,7 +3,7 @@ package idv.cjcat.rusher.engine
   import idv.cjcat.rusher.data.InListNode;
   import org.swiftsuspenders.Injector;
   
-  public class RusherObject extends InListNode implements IInjectible
+  public class RusherObject extends InListNode implements IInjectorHolder
   {
     private var injector_:Injector;
     public function getInjector():Injector { return injector_; }
