@@ -36,20 +36,20 @@ package idv.cjcat.rusher.action
     
     public final function pause():void
     {
-      isPaused_ = true;
       onPaused ();
+      isPaused_ = true;
     }
     
     public final function resume():void
     {
-      isPaused_ = false;
       onResumed();
+      isPaused_ = false;
     }
     
     public final function cancel():void
     {
-      isCancelled_ = true;
       onCancelled();
+      isCancelled_ = true;
     }
   }
 }
