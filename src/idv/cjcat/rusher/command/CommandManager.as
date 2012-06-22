@@ -26,7 +26,7 @@ package idv.cjcat.rusher.command
       //command not complete after execution
       if (!command.isComplete)
       {
-        commands_.add(command);
+        commands_.pushBack(command);
       }
     }
     

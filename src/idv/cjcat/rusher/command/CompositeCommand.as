@@ -11,13 +11,13 @@ package idv.cjcat.rusher.command
     {
       for (var i:int = 0, len:int = subcommands.length; i < len; ++i)
       {
-        this.subcommands.add(subcommands[i]);
+        this.subcommands.pushBack(subcommands[i]);
       }
     }
     
     public function append(command:Command):void
     {
-      subcommands.add(command);
+      subcommands.pushBack(command);
     }
   }
 }
