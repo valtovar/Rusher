@@ -30,9 +30,11 @@ package idv.cjcat.rusher.action
     protected function onCancelled():void
     { }
     
-    public final function block    ():void { isBlocking_  = true;  }
-    public final function unblock  ():void { isBlocking_  = false; }
-    public final function completed():void { isCompleted_ = true;  }
+    public final function block   ():void { isBlocking_  = true;  }
+    public final function unblock ():void { isBlocking_  = false; }
+    
+    //only the action can complete itself
+    protected final function complete():void { isCompleted_ = true;  }
     
     public final function pause():void
     {
