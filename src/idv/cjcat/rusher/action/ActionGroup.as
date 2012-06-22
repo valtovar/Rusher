@@ -12,7 +12,13 @@ package idv.cjcat.rusher.action
     
     public function size():int { return size_; }
     
-    public function pushBack(laneName:String, ...actions):ActionList
+    private var autoComplete_:Boolean;
+    public function ActionGroup(autoComplete:Boolean = false)
+    {
+      autoComplete_ = autoComplete;
+    }
+    
+    public function pushBack(laneName:String, ...actions):void
     {
       var lane:InList = getLane(laneName);
       for (var i:int = 0, len:int = actions.length; i < len; ++i)
@@ -28,7 +34,7 @@ package idv.cjcat.rusher.action
       size_ += actions.length;
     }
     
-    public function pushFront(laneName:String, ...actions):ActionList
+    public function pushFront(laneName:String, ...actions):void
     {
       var lane:InList = getLane(laneName);
       for (var i:int = actions.length - 1; i >= 0; --i)
@@ -48,6 +54,7 @@ package idv.cjcat.rusher.action
     {
       if (isPaused() || isCancelled() || isCompleted()) return;
       
+      //iterate through all lanes
       for (var key:* in lanes_)
       {
         var lane:InList = lanes_[key];
@@ -64,8 +71,8 @@ package idv.cjcat.rusher.action
         var iter:InListIterator = lane.getIterator();
         while (action = iter.data())
         {
-          //action cancelled && completed before update, remove
-          if (action.isCancelled() || action.isCompleted())
+          //action cancelled before update, remove and continue
+          if (action.isCancelled())
           {
             iter.remove();
             --size_;
@@ -77,21 +84,23 @@ package idv.cjcat.rusher.action
           {
             action.update(dt);
             
-            //action cancelled && completed after update, remove
+            //action cancelled or completed after update, remove and continue
             if (action.isCancelled() || action.isCompleted())
             {
               iter.remove();
               --size_;
               continue;
             }
-            else
-            {
-              //command is blocking, break
-              if (action.isBlocking()) break;
-            }
           }
+          
+          //action is blocking, break
+          if (action.isBlocking()) break;
+          
+          iter.next();
         }
       }
+      
+      if (autoComplete_) complete();
     }
     
     override protected function onCancelled():void 
