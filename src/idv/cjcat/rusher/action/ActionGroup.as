@@ -103,7 +103,13 @@ package idv.cjcat.rusher.action
         var action:Action;
         var iter:InListIterator = lane.getIterator();
         
+        while (action = iter.data())
+        {
+          action.cancel();
+          iter.remove();
+        }
         
+        delete lanes_[key];
       }
     }
     
