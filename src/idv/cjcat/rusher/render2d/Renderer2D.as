@@ -14,7 +14,7 @@ package idv.cjcat.rusher.render2d
     /** @private */
     internal function register(target:RenderTarget2D):void
     {
-      targets_.add(target);
+      targets_.pushBack(target);
     }
     
     /** @private */

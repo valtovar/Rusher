@@ -16,7 +16,7 @@ package idv.cjcat.rusher.state
     
     public function register(component:StateMachineComponent):void
     {
-      components_.add(component);
+      components_.pushBack(component);
     }
     
     public function unregister(component:StateMachineComponent):void
