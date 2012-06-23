@@ -5,8 +5,12 @@ package idv.cjcat.rusher.action
   public class Action extends RusherObject
   {
     /** @private */
-    internal var parent_:ActionGroup = null;
-    public function parent():ActionGroup { return parent_; }
+    internal var parent_:ActionList = null;
+    public function parent():ActionList { return parent_; }
+    
+    /** @private */
+    internal var groupID_:int = 0;
+    public function groupID():int { return groupID_; }
     
     private var isBlocking_ :Boolean = false;
     private var isCompleted_:Boolean = false;

@@ -5,49 +5,39 @@ package idv.cjcat.rusher.action
   import idv.cjcat.rusher.data.InListIterator;
   import idv.cjcat.rusher.engine.RusherObject;
 	
-  public final class ActionGroup extends Action
+  public final class ActionList extends Action
   {
     private var size_:int = 0;
-    private var lanes_:Dictionary = new Dictionary();
+    private var groups_:Dictionary = new Dictionary();
     
     public function size():int { return size_; }
     
     private var autoComplete_:Boolean;
-    public function ActionGroup(autoComplete:Boolean = false)
+    public function ActionList(autoComplete:Boolean = false)
     {
       autoComplete_ = autoComplete;
     }
     
-    public function pushBack(laneName:String, ...actions):void
+    public function pushBack(action:Action, groupID:int = 0):void
     {
-      var lane:InList = getLane(laneName);
-      for (var i:int = 0, len:int = actions.length; i < len; ++i)
-      {
-        var action:Action = actions[i];
-        
-        action.parent_ = this;
-        action.setInjector(getInjector());
-        getInjector().injectInto(action);
-        
-        lane.pushBack(action);
-      }
-      size_ += actions.length;
+      getGroup(groupID).pushBack(action);
+      injectDependency(action, groupID);
+      ++size_;
     }
     
-    public function pushFront(laneName:String, ...actions):void
+    public function pushFront(action:Action, groupID:int = 0):void
     {
-      var lane:InList = getLane(laneName);
-      for (var i:int = actions.length - 1; i >= 0; --i)
-      {
-        var action:Action = actions[i];
-        
-        action.parent_ = this;
-        action.setInjector(getInjector());
-        getInjector().injectInto(action);
-        
-        lane.pushFront(action);
-      }
-      size_ += actions.length;
+      getGroup(groupID).pushFront(action);
+      injectDependency(action, groupID);
+      ++size_;
+    }
+    
+    private function injectDependency(action:Action, groupID:int):void
+    {
+      action.parent_ = this;
+      action.groupID_ = groupID;
+      action.setInjector(getInjector());
+      getInjector().injectInto(action);
     }
     
     override public function update(dt:Number):void
@@ -55,20 +45,20 @@ package idv.cjcat.rusher.action
       if (isPaused() || isCancelled() || isCompleted()) return;
       
       //iterate through all lanes
-      for (var key:* in lanes_)
+      for (var key:* in groups_)
       {
-        var lane:InList = lanes_[key];
+        var group:InList = groups_[key];
         
         //empty lane, remove and continue
-        if (lane.size() == 0)
+        if (group.size() == 0)
         {
-          delete lanes_[key];
+          delete groups_[key];
           continue;
         }
         
-        //iterate through actions in the current lane
+        //iterate through actions in the current group
         var action:Action;
-        var iter:InListIterator = lane.getIterator();
+        var iter:InListIterator = group.getIterator();
         while (action = iter.data())
         {
           //action cancelled before update, remove and continue
@@ -106,30 +96,30 @@ package idv.cjcat.rusher.action
     override protected function onCancelled():void 
     {
       //cancel all underlying actions
-      for (var key:* in lanes_)
+      for (var key:* in groups_)
       {
-        var lane:InList = lanes_[key];
+        var group:InList = groups_[key];
         var action:Action;
-        var iter:InListIterator = lane.getIterator();
+        var iter:InListIterator = group.getIterator();
         
         while (action = iter.data())
         {
-          action.cancel();
+          if (!action.isCancelled()) action.cancel();
           iter.remove();
         }
         
-        delete lanes_[key];
+        delete groups_[key];
       }
     }
     
-    private function getLane(laneName:String):InList
+    private function getGroup(groupID:int):InList
     {
-      var lane:InList;
+      var group:InList;
       
-      //create lane if non-existent
-      if (!(lane = lanes_[laneName])) lanes_[laneName] = lane = new InList();
+      //create group if non-existent
+      if (!(group = groups_[groupID])) groups_[groupID] = group = new InList();
       
-      return lane;
+      return group;
     }
   }
 }
