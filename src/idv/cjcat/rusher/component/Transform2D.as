@@ -18,7 +18,7 @@ package idv.cjcat.rusher.component
     public var inheritsScale:Boolean = true;
     
     public function calculateMatrix():Matrix {
-      var owner:Entity = getOwner();
+      var owner:Entity = getInstance(Entity);
       
       //early out
       if (matrixVersion_ == version_ && !owner.getParent()) return matrix_;
