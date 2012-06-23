@@ -50,12 +50,11 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <element path="libs\greensock.swc" />
     <element path="libs\SwiftSuspenders-v2.0.0.swc" />
+    <element path="libs\greensock.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
-    <element path="libs\greensock.swc" />
     <element path="libs\SwiftSuspenders-v2.0.0.swc" />
   </externalLibraryPaths>
   <!-- Runtime Shared Libraries -->
