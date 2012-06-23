@@ -13,7 +13,7 @@ package idv.cjcat.rusher.action
     public function size():int { return size_; }
     
     private var autoComplete_:Boolean;
-    public function ActionList(autoComplete:Boolean = false)
+    public function ActionList(autoComplete:Boolean = true)
     {
       autoComplete_ = autoComplete;
     }
@@ -105,7 +105,7 @@ package idv.cjcat.rusher.action
         while (action = iter.data())
         {
           if (!action.isCancelled()) action.cancel();
-          iter.remove();
+          iter.next();
         }
         
         delete groups_[key];
