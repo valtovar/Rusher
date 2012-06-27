@@ -5,9 +5,9 @@ package idv.cjcat.rusher
    */
   public class Rusher 
   {
-    public static const AUTHOR              :String = "CJ Cat (Ming-Lun \"Allen\" Chou)";
-    public static const BLOG                :String = "http://blog.cjcat.net";
-    public static const PROJECT_HOMEPAGE    :String = "http://code.google.com/p/rusher";
-    public static const VERSION             :String = "2.1";
+    public static const AUTHOR           :String = "Ming-Lun \"Allen\" Chou (CJ Cat)";
+    public static const BLOG             :String = "http://allenchou.net/blog";
+    public static const PROJECT_HOMEPAGE :String = "http://code.google.com/p/rusher";
+    public static const VERSION          :String = "2.1";
   }
 }
