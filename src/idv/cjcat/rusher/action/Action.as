@@ -45,7 +45,7 @@ package idv.cjcat.rusher.action
     public function isCompleted():Boolean { return isCompleted_; }
     public function isPaused   ():Boolean { return isPaused_;    }
     
-    public function update(dt:Number):void
+    protected function update(dt:Number):void
     { }
     
     public final function block   ():void { isBlocking_  = true;  }
