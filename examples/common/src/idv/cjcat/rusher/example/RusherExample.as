@@ -7,6 +7,7 @@ package idv.cjcat.rusher.example
   import flash.display.StageAlign;
   import flash.display.StageScaleMode;
   import flash.events.Event;
+  import flash.filters.GlowFilter;
   import flash.text.AntiAliasType;
   import flash.text.TextField;
   import flash.text.TextFormat;
@@ -18,14 +19,15 @@ package idv.cjcat.rusher.example
     private var RusherLogo:Class;
     
     [Embed(source="assets/Arial.ttf", fontFamily="Arial", embedAsCFF="false", unicodeRange="U+0020-007E")]
-    private var Arial:String;
+    private var Arial:Class;
     
     [Embed(source="assets/Berlin Sans Demi.ttf", fontName="Berlin Sans Demi", embedAsCFF="false", unicodeRange="U+0020-007E")]
-    public var BerlinSansDemi:String;
+    public var BerlinSansDemi:Class;
     
     private var backgroundColor_:uint;
     
     private var title_      :TextField = new TextField();
+    private var message_    :TextField = new TextField();
     private var blog_       :TextField = new TextField();
     private var link_       :TextField = new TextField();
     
@@ -37,7 +39,7 @@ package idv.cjcat.rusher.example
     
     protected function get canvas():DisplayObjectContainer { return canvas_; }
     
-		public function RusherExample(title:String = "Rusher Example", backgroundColor:uint = 0xFFFFFF)
+		public function RusherExample(title:String = "Rusher Example", backgroundColor:uint = 0xFFFFFF, message:String = "")
 		{
       backgroundColor_ = backgroundColor;
       
@@ -52,6 +54,15 @@ package idv.cjcat.rusher.example
       title_.embedFonts = true;
       title_.selectable = false;
       title_.setTextFormat(new TextFormat("Berlin Sans Demi", 20, 0xFFFFFF));
+      
+      //set message
+      message_.text = message;
+      message_.width = 800;
+      message_.antiAliasType = AntiAliasType.ADVANCED;
+      message_.embedFonts = true;
+      message_.selectable = false;
+      message_.setTextFormat(new TextFormat("Arial", 16, 0x0000000));
+      message_.filters = [new GlowFilter(0xFFFFFFF, 1, 1.2, 1.2, 100, 2)];
       
       //set blog
       blog_.htmlText= "<a href='http://allenchou.net'>http://allenchou.net</a>";
@@ -72,6 +83,7 @@ package idv.cjcat.rusher.example
       addChild(background_);
       addChild(canvas_);
       addChild(bars_);
+      addChild(message_);
       addChild(title_);
       addChild(blog_);
       addChild(link_);
@@ -106,7 +118,10 @@ package idv.cjcat.rusher.example
       logo_.y = stage.stageHeight - logo_.height - 3;
       
       //set title
-      title_.x = 5, title_.y = 7;
+      title_.x = 3, title_.y = 6;
+      
+      //set message
+      message_.x = 5, message_.y = 50;
       
       //set blog
       blog_.x = 2, blog_.y = stage.stageHeight - 38;
