@@ -8,7 +8,7 @@ package idv.cjcat.rusher.action
   public final class ActionList extends Action
   {
     private var size_:int = 0;
-    private var groups_:Dictionary = new Dictionary();
+    private var lanes_:Dictionary = new Dictionary();
     
     public function size():int { return size_; }
     
@@ -22,7 +22,7 @@ package idv.cjcat.rusher.action
     
     public function pushBack(action:Action, laneID:int = 0):void
     {
-      getGroup(laneID).pushBack(action);
+      getLane(laneID).pushBack(action);
       action.laneID_ = laneID;
       injectDependency(action, laneID);
       ++size_;
@@ -30,7 +30,7 @@ package idv.cjcat.rusher.action
     
     public function pushFront(action:Action, laneID:int = 0):void
     {
-      getGroup(laneID).pushFront(action);
+      getLane(laneID).pushFront(action);
       action.laneID_ = laneID;
       injectDependency(action, laneID);
       ++size_;
@@ -49,14 +49,14 @@ package idv.cjcat.rusher.action
       if (isPaused() || isCompleted()) return;
       
       //iterate through all lanes
-      for (var key:* in groups_)
+      for (var key:* in lanes_)
       {
-        var group:InList = groups_[key];
+        var group:InList = lanes_[key];
         
         //empty lane, remove and continue
         if (group.size() == 0)
         {
-          delete groups_[key];
+          delete lanes_[key];
           continue;
         }
         
@@ -139,9 +139,9 @@ package idv.cjcat.rusher.action
     private function cancelSubactions():void 
     {
       //cancel all underlying actions
-      for (var key:* in groups_)
+      for (var key:* in lanes_)
       {
-        var group:InList = groups_[key];
+        var group:InList = lanes_[key];
         var action:Action;
         var iter:InListIterator = group.getIterator();
         
@@ -151,18 +151,18 @@ package idv.cjcat.rusher.action
           iter.next();
         }
         
-        delete groups_[key];
+        delete lanes_[key];
       }
     }
     
-    private function getGroup(laneID:int):InList
+    private function getLane(laneID:int):InList
     {
-      var group:InList;
+      var lane:InList;
       
       //create group if non-existent
-      if (!(group = groups_[laneID])) groups_[laneID] = group = new InList();
+      if (!(lane = lanes_[laneID])) lanes_[laneID] = lane = new InList();
       
-      return group;
+      return lane;
     }
   }
 }
