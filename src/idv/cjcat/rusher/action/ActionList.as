@@ -104,6 +104,38 @@ package idv.cjcat.rusher.action
       if (autoComplete_) complete();
     }
     
+    
+    //utility functions
+    //-------------------------------------------------------------------------
+    
+    public static function serial(...actions):ActionList
+    {
+      var actionList:ActionList = new ActionList(true);
+      for (var i:int = 0, len:int = actions.length; i < len; ++i)
+      {
+        var action:Action = actions[i];
+        action.block();
+        actionList.pushBack(action);
+      }
+      return actionList;
+    }
+    
+    public static function parallel(...actions):ActionList
+    {
+      var actionList:ActionList = new ActionList(true);
+      for (var i:int = 0, len:int = actions.length; i < len; ++i)
+      {
+        var action:Action = actions[i];
+        action.unblock();
+        actionList.pushBack(action);
+      }
+      return actionList;
+    }
+    
+    //-------------------------------------------------------------------------
+    //end of utility functions
+    
+    
     private function cancelSubactions():void 
     {
       //cancel all underlying actions
