@@ -1,6 +1,7 @@
 package idv.cjcat.rusher.render2d 
 {
   import flash.display.DisplayObject;
+  import flash.display.DisplayObjectContainer;
   import flash.geom.Transform;
   import idv.cjcat.rusher.component.Transform2D;
   import idv.cjcat.rusher.data.InList;
@@ -21,6 +22,13 @@ package idv.cjcat.rusher.render2d
     internal function unregister(target:RenderTarget2D):void
     {
       targets_.remove(target);
+    }
+    
+    /** @private */
+    internal var defaultContainer_:DisplayObjectContainer;
+    public function Renderer2D(defaultContainer:DisplayObjectContainer = null)
+    {
+      defaultContainer_ = defaultContainer;
     }
     
     override public function update(dt:Number):void 

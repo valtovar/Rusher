@@ -19,12 +19,17 @@ package idv.cjcat.rusher.render2d
       this.displayObject = displayObject;
     }
     
-    override public function onAdded():void 
+    override public function init():void 
     {
-      Renderer2D(getInstance(Renderer2D)).register(this);
+      var renderer:Renderer2D = getInstance(Renderer2D);
+      getInstance(Renderer2D).register(this);
+      if (renderer.defaultContainer_ && displayObject_ && !displayObject_.parent)
+      {
+        renderer.defaultContainer_.addChild(displayObject_);
+      }
     }
     
-    override public function onRemoved():void 
+    override public function dispose():void 
     {
       if (displayObject_ && displayObject_.parent)
       {

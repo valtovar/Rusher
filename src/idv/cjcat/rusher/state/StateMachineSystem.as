@@ -24,7 +24,7 @@ package idv.cjcat.rusher.state
       components_.remove(component);
     }
     
-    public function onAdded():void
+    public function init():void
     {
       for (var i:int = 0, len:int = initStates_.length; i < len; ++i)
       {
@@ -32,7 +32,7 @@ package idv.cjcat.rusher.state
       }
     }
     
-    public function onRemoved():void
+    public function dispose():void
     {
       var stateMachineIter:InListIterator = stateMachines_.getIterator();
       var stateMachine:StateMachine;

@@ -13,7 +13,7 @@ package idv.cjcat.rusher.state
       initStates_ = initStates;
     }
     
-    public function onAdded():void
+    public function init():void
     {
       var system:StateMachineSystem = getInstance(StateMachineSystem);
       system.register(this);
@@ -24,7 +24,7 @@ package idv.cjcat.rusher.state
       }
     }
     
-    public function onRemoved():void
+    public function dispose():void
     {
       var iter:InListIterator = stateMachines_.getIterator();
       var stateMachine:StateMachine;

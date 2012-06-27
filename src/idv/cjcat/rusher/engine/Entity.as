@@ -2,12 +2,26 @@ package idv.cjcat.rusher.engine
 {
   import flash.utils.Dictionary;
   import idv.cjcat.rusher.utils.construct;
+  import org.osflash.signals.ISignal;
+  import org.osflash.signals.Signal;
   import org.swiftsuspenders.Injector;
 	
   public class Entity extends RusherObject
   {
+    //signals
+    //-------------------------------------------------------------------------
+    
+    private var onMounted_  :ISignal = new Signal(Entity);
+    private var onUnmounted_:ISignal = new Signal(Entity);
+    public function get onMounted  ():ISignal { return onMounted_  ; }
+    public function get onUnmounted():ISignal { return onUnmounted_; }
+    
+    //-------------------------------------------------------------------------
+    //end of signals
+    
+    
     private var name_:String;
-    public function getName():String { return name_; }
+    public function name():String { return name_; }
     
     private var parent_:Entity = null;
     public function getParent():Entity { return parent_; }
@@ -37,14 +51,14 @@ package idv.cjcat.rusher.engine
       
       //map to entity's and engine's injectors
       injector.map(ComponentClass).toValue(component);
-      injector.parentInjector.map(ComponentClass, getName()).toValue(component);
+      injector.parentInjector.map(ComponentClass, name()).toValue(component);
       
       //intialize component
       component.setInjector(getInjector());
       components_[ComponentClass] = component;
       
       getInjector().injectInto(component);
-      component.onAdded();
+      component.init();
       
       return component;
     }
@@ -59,7 +73,7 @@ package idv.cjcat.rusher.engine
       var component:IComponent = getComponent(ComponentClass);
       
       //remove component from entity
-      component.onRemoved();
+      component.dispose();
       component.setInjector(null);
       delete components_[ComponentClass];
     }
@@ -79,12 +93,16 @@ package idv.cjcat.rusher.engine
       children_[child.name_] = child;
       child.parent_ = this;
       
+      child.onMounted.dispatch(this);
+      
       return child;
     }
     
     public function unmount(child:Entity):Entity
     {
       if (!children_[child.name_]) throw new Error("Child entity named \"" + child.name_ + "\" not found.");
+      
+      child.onUnmounted.dispatch(this);
       
       //remove parent-child relation
       delete children_[child.name_];
@@ -103,7 +121,7 @@ package idv.cjcat.rusher.engine
       }
       
       //and then destroy this entity itself
-      getInstance(Engine).destroyEntity(getName());
+      getInstance(Engine).destroyEntity(name());
     }
     
     /** @private */

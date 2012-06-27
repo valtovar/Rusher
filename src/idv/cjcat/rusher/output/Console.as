@@ -78,7 +78,7 @@ package idv.cjcat.rusher.output
       sprite_.visible = !sprite_.visible;
     }
     
-    override public function onAdded():void
+    override public function init():void
     {
       stage_ = getInstance(Stage);
       input_ = getInstance(Input);
@@ -86,7 +86,7 @@ package idv.cjcat.rusher.output
       buildView();
     }
     
-    override public function onRemoved():void
+    override public function dispose():void
     {
       textField_.text = "";
       textField_ = null;

@@ -3,8 +3,8 @@ package idv.cjcat.rusher.engine
 	
   public interface ISystem extends IInjectorHolder
   {
-    function onAdded():void;
-    function onRemoved():void;
+    function init():void;
+    function dispose():void;
     function update(dt:Number):void;
   }
 }

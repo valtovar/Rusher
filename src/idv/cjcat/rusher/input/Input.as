@@ -101,7 +101,7 @@ package idv.cjcat.rusher.input
     public function mouseDeltaY() :Number { return mouseDeltaY_; }
     public function mouseWheel()  :Number { return mouseWheel_;  }
     
-    override public function onAdded():void
+    override public function init():void
     {
       stage_ = getInstance(Stage);
       
@@ -121,7 +121,7 @@ package idv.cjcat.rusher.input
       stage_.addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel, false, int.MAX_VALUE);
     }
     
-    override public function onRemoved():void
+    override public function dispose():void
     {
       stage_.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown   );
       stage_.removeEventListener(KeyboardEvent.KEY_UP  , onKeyUp     );

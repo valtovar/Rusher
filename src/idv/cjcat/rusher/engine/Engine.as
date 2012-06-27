@@ -42,7 +42,7 @@ package idv.cjcat.rusher.engine
       system.setInjector(injector_);
       
       injector_.injectInto(system);
-      system.onAdded();
+      system.init();
       
       return system;
     }
@@ -55,7 +55,7 @@ package idv.cjcat.rusher.engine
       var system:ISystem = getInstance(SystemClass);
       
       //dispose system
-      system.onRemoved();
+      system.dispose();
       
       //remove system from engine
       systems_.splice(systems_.indexOf(system), 1);
