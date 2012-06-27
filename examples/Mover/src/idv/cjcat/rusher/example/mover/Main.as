@@ -18,7 +18,7 @@ package idv.cjcat.rusher.example.mover
     
 		public function Main()
     {
-      super("Mover");
+      super("Mover", 0x888080, "Use the ARROW KEYS to move.");
       
       engine = new Engine(stage);
       
