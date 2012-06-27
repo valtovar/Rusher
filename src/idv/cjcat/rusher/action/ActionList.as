@@ -16,33 +16,37 @@ package idv.cjcat.rusher.action
     public function ActionList(autoComplete:Boolean = true)
     {
       autoComplete_ = autoComplete;
+      
+      onCancelled.add(cancelSubactions);
     }
     
-    public function pushBack(action:Action, groupID:int = 0):void
+    public function pushBack(action:Action, laneID:int = 0):void
     {
-      getGroup(groupID).pushBack(action);
-      injectDependency(action, groupID);
+      getGroup(laneID).pushBack(action);
+      action.laneID_ = laneID;
+      injectDependency(action, laneID);
       ++size_;
     }
     
-    public function pushFront(action:Action, groupID:int = 0):void
+    public function pushFront(action:Action, laneID:int = 0):void
     {
-      getGroup(groupID).pushFront(action);
-      injectDependency(action, groupID);
+      getGroup(laneID).pushFront(action);
+      action.laneID_ = laneID;
+      injectDependency(action, laneID);
       ++size_;
     }
     
-    private function injectDependency(action:Action, groupID:int):void
+    private function injectDependency(action:Action, laneID:int):void
     {
       action.parent_ = this;
-      action.groupID_ = groupID;
+      action.laneID_ = laneID;
       action.setInjector(getInjector());
       getInjector().injectInto(action);
     }
     
     override public function update(dt:Number):void
     {
-      if (isPaused() || isCancelled() || isCompleted()) return;
+      if (isPaused() || isCompleted()) return;
       
       //iterate through all lanes
       for (var key:* in groups_)
@@ -61,8 +65,8 @@ package idv.cjcat.rusher.action
         var iter:InListIterator = group.getIterator();
         while (action = iter.data())
         {
-          //action cancelled before update, remove and continue
-          if (action.isCancelled())
+          //action completed before update, remove and continue
+          if (action.isCompleted())
           {
             iter.remove();
             --size_;
@@ -72,10 +76,17 @@ package idv.cjcat.rusher.action
           //action not paused, update
           if (!action.isPaused())
           {
+            //first update, call onStarted()
+            if (!action.isStarted_) 
+            {
+              action.onStarted.dispatch();
+              action.isStarted_ = true;
+            }
+            
             action.update(dt);
             
             //action cancelled or completed after update, remove and continue
-            if (action.isCancelled() || action.isCompleted())
+            if (action.isCompleted())
             {
               iter.remove();
               --size_;
@@ -93,7 +104,7 @@ package idv.cjcat.rusher.action
       if (autoComplete_) complete();
     }
     
-    override protected function onCancelled():void 
+    private function cancelSubactions():void 
     {
       //cancel all underlying actions
       for (var key:* in groups_)
@@ -104,7 +115,7 @@ package idv.cjcat.rusher.action
         
         while (action = iter.data())
         {
-          if (!action.isCancelled()) action.cancel();
+          if (!action.isCompleted()) action.cancel();
           iter.next();
         }
         
@@ -112,12 +123,12 @@ package idv.cjcat.rusher.action
       }
     }
     
-    private function getGroup(groupID:int):InList
+    private function getGroup(laneID:int):InList
     {
       var group:InList;
       
       //create group if non-existent
-      if (!(group = groups_[groupID])) groups_[groupID] = group = new InList();
+      if (!(group = groups_[laneID])) groups_[laneID] = group = new InList();
       
       return group;
     }
