@@ -8,7 +8,7 @@ package idv.cjcat.rusher.engine
   public class Engine
   {
     private var systems_  :Vector.<ISystem> = new Vector.<ISystem>();
-    private var injector_ :Injector        = new Injector();
+    private var injector_ :Injector         = new Injector();
     
     public function Engine(stage:Stage)
     {
