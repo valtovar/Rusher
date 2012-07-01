@@ -24,7 +24,6 @@ package idv.cjcat.rusher.action
     {
       getLane(laneID).pushBack(action);
       action.laneID_ = laneID;
-      injectDependency(action, laneID);
       ++size_;
     }
     
@@ -32,14 +31,12 @@ package idv.cjcat.rusher.action
     {
       getLane(laneID).pushFront(action);
       action.laneID_ = laneID;
-      injectDependency(action, laneID);
       ++size_;
     }
     
-    private function injectDependency(action:Action, laneID:int):void
+    private function injectDependency(action:Action):void
     {
       action.parent_ = this;
-      action.laneID_ = laneID;
       action.setInjector(getInjector());
       getInjector().injectInto(action);
     }
@@ -79,6 +76,9 @@ package idv.cjcat.rusher.action
             //first update, call onStarted()
             if (!action.isStarted_) 
             {
+              //set iterator & lane ID (key)
+              injectDependency(action);
+              
               action.onStarted.dispatch();
               action.isStarted_ = true;
             }
