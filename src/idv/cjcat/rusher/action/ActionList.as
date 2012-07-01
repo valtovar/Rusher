@@ -101,7 +101,7 @@ package idv.cjcat.rusher.action
         }
       }
       
-      if (autoComplete_) complete();
+      if (size_ == 0 && autoComplete_) complete();
     }
     
     
