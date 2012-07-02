@@ -81,8 +81,20 @@ package idv.cjcat.rusher.action
               
               action.onStarted.dispatch();
               action.isStarted_ = true;
+              
+              //action cancelled or completed after init, remove and continue
+              if (action.isCompleted())
+              {
+                iter.remove();
+                --size_;
+                continue;
+              }
+              
+              //action does not update instantly after init if it's not completed, continue
+              if (!action.instantUpdate_) continue;
             }
             
+            //update action
             action.update(dt);
             
             //action cancelled or completed after update, remove and continue

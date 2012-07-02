@@ -34,6 +34,9 @@ package idv.cjcat.rusher.action
     public function laneID():int { return laneID_; }
     
     /** @private */
+    internal var instantUpdate_:Boolean;
+    
+    /** @private */
     internal var isStarted_  :Boolean = false;
     
     private var isBlocking_  :Boolean = false;
@@ -50,6 +53,11 @@ package idv.cjcat.rusher.action
     
     public final function block   ():void { isBlocking_  = true;  }
     public final function unblock ():void { isBlocking_  = false; }
+    
+    public function Action(instantUpdate:Boolean = false)
+    {
+      instantUpdate_ = instantUpdate;
+    }
     
     //only the action can complete itself
     protected final function complete():void
