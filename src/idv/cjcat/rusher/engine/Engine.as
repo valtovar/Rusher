@@ -9,6 +9,7 @@ package idv.cjcat.rusher.engine
   {
     private var systems_  :Vector.<ISystem> = new Vector.<ISystem>();
     private var injector_ :Injector         = new Injector();
+    private var entitiesToDestroy_:Vector.<Entity> = new Vector.<Entity>();
     
     public function Engine(stage:Stage)
     {
@@ -20,10 +21,25 @@ package idv.cjcat.rusher.engine
     
     public function update(dt:Number):void
     {
-      for (var i:int = 0, len:int = systems_.length; i < len; ++i)
+      var i:int, len:int;
+      for (i = 0, len = systems_.length; i < len; ++i)
       {
         systems_[i].update(dt);
       }
+      
+      //remove entities marked for destruction from engine
+      for (i = 0, len = entitiesToDestroy_.length; i < len; ++i)
+      {
+        var entity:Entity = entitiesToDestroy_[i];
+        
+        //destroy components
+        entity.dispose();
+        
+        //unroll dependency
+        injector_.unmap(Entity, entity.name());
+        entity.setInjector(null);
+      }
+      entitiesToDestroy_.length = 0;
     }
     
     public function addSystem(SystemClass:Class, ...params):*
@@ -90,18 +106,12 @@ package idv.cjcat.rusher.engine
       return entity;
     }
     
-    //TODO: late removal
     public function destroyEntity(name:String):void
     {
       //check entity name existence
       if (!injector_.satisfies(Entity, name)) throw new Error("Entity named\"" + name + "\" does not exist.");
       
-      var entity:Entity = getEntity(name);
-      
-      //remove entity from system
-      entity.dispose();
-      injector_.unmap(Entity, name);
-      entity.setInjector(null);
+      entitiesToDestroy_.push(getEntity(name));
     }
     
     public function getEntity(name:String):Entity
