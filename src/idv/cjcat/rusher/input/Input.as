@@ -161,11 +161,13 @@ package idv.cjcat.rusher.input
     
     private function onKeyDown(e:KeyboardEvent):void 
     {
+      if (e.keyCode < 0 || e.keyCode >= downStatus_.length) return;
 			downStatus_[e.keyCode] = true;
     }
     
     private function onKeyUp(e:KeyboardEvent):void 
     {
+      if (e.keyCode < 0 || e.keyCode >= downStatus_.length) return;
       downStatus_[e.keyCode] = false;
     }
     
