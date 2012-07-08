@@ -53,7 +53,7 @@
     <element path="libs\SwiftSuspenders-v2.0.0.swc" />
     <element path="libs\greensock.swc" />
     <element path="libs\as3-signals-v0.9-BETA.swc" />
-    <element path="libs\starling.swc" />
+    <element path="libs\starling-v1.1.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>
