@@ -43,10 +43,10 @@ package idv.cjcat.rusher.action
     private var isCompleted_ :Boolean = false;
     private var isPaused_    :Boolean = false;
     
-    public function isStarted  ():Boolean { return isStarted_  ; }
-    public function isBlocking ():Boolean { return isBlocking_ ; }
-    public function isCompleted():Boolean { return isCompleted_; }
-    public function isPaused   ():Boolean { return isPaused_;    }
+    public final function isStarted  ():Boolean { return isStarted_  ; }
+    public final function isBlocking ():Boolean { return isBlocking_ ; }
+    public final function isCompleted():Boolean { return isCompleted_; }
+    public final function isPaused   ():Boolean { return isPaused_;    }
     
     public function update(dt:Number):void
     { }
