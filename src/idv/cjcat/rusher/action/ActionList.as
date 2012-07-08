@@ -13,10 +13,10 @@ package idv.cjcat.rusher.action
     public function size():int { return size_; }
     
     private var autoComplete_:Boolean;
-    public function ActionList(autoComplete:Boolean = true)
+    public function ActionList(autoComplete:Boolean = true, instantUpdate:Boolean = false)
     {
+      super(instantUpdate);
       autoComplete_ = autoComplete;
-      
       onCancelled.add(cancelSubactions);
     }
     
