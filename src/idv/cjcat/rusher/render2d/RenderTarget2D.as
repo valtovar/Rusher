@@ -22,7 +22,7 @@ package idv.cjcat.rusher.render2d
     override public function init():void 
     {
       var renderer:Renderer2D = getInstance(Renderer2D);
-      getInstance(Renderer2D).register(this);
+      renderer.register(this);
       if (renderer.defaultContainer_ && displayObject_ && !displayObject_.parent)
       {
         renderer.defaultContainer_.addChild(displayObject_);
