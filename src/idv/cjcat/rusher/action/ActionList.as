@@ -4,11 +4,17 @@ package idv.cjcat.rusher.action
   import idv.cjcat.rusher.data.InList;
   import idv.cjcat.rusher.data.InListIterator;
   import idv.cjcat.rusher.engine.RusherObject;
+  import idv.cjcat.rusher.utils.ObjectPool;
 	
   public final class ActionList extends Action
   {
     private var size_:int = 0;
-    private var lanes_:Dictionary = new Dictionary();
+    
+    //(key, value) = (id, lane)
+    private var laneDictionary_:Dictionary = new Dictionary();
+    private var laneOrderDirty_:Boolean = false;
+    private var lanes_:Vector.<ActionLane> = new Vector.<ActionLane>();
+    private var lanePool_:ObjectPool = new ObjectPool();
     
     public function size():int { return size_; }
     
@@ -22,14 +28,14 @@ package idv.cjcat.rusher.action
     
     public function pushBack(action:Action, laneID:int = 0):void
     {
-      getLane(laneID).pushBack(action);
+      getLane(laneID).actions.pushBack(action);
       action.laneID_ = laneID;
       ++size_;
     }
     
     public function pushFront(action:Action, laneID:int = 0):void
     {
-      getLane(laneID).pushFront(action);
+      getLane(laneID).actions.pushFront(action);
       action.laneID_ = laneID;
       ++size_;
     }
@@ -45,21 +51,21 @@ package idv.cjcat.rusher.action
     {
       if (isPaused() || isCompleted()) return;
       
+      //lane order dirty, sort
+      if (laneOrderDirty_) lanes_.sort(laneSorter);
+      
       //iterate through all lanes
-      for (var key:* in lanes_)
+      var i:int, len:int;
+      var lane:ActionLane;
+      var laneActions:InList;
+      for (i = 0, len = lanes_.length; i < len; ++i)
       {
-        var group:InList = lanes_[key];
-        
-        //empty lane, remove and continue
-        if (group.size() == 0)
-        {
-          delete lanes_[key];
-          continue;
-        }
+        lane = lanes_[i];
+        laneActions = lane.actions;
         
         //iterate through actions in the current group
         var action:Action;
-        var iter:InListIterator = group.getIterator();
+        var iter:InListIterator = laneActions.getIterator();
         while (action = iter.data())
         {
           //action completed before update, remove and continue
@@ -113,6 +119,20 @@ package idv.cjcat.rusher.action
         }
       }
       
+      //loop backwards, recycling empty lanes
+      for (i = lanes_.length - 1; i >= 0; --i)
+      {
+        lane = lanes_[i];
+        
+        //empty lane, remove from dictionary and put into pool
+        if (lane.actions.size() == 0)
+        {
+          delete laneDictionary_[lane.id];
+          lanes_.splice(i, 1);
+          lanePool_.put(lane);
+        }
+      }
+      
       if (size_ == 0 && autoComplete_) complete();
     }
     
@@ -151,9 +171,9 @@ package idv.cjcat.rusher.action
     private function cancelSubactions():void 
     {
       //cancel all underlying actions
-      for (var key:* in lanes_)
+      for (var key:* in laneDictionary_)
       {
-        var group:InList = lanes_[key];
+        var group:InList = laneDictionary_[key];
         var action:Action;
         var iter:InListIterator = group.getIterator();
         
@@ -163,18 +183,40 @@ package idv.cjcat.rusher.action
           iter.next();
         }
         
-        delete lanes_[key];
+        delete laneDictionary_[key];
       }
     }
     
-    private function getLane(laneID:int):InList
+    private function getLane(laneID:int):ActionLane
     {
-      var lane:InList;
+      var lane:ActionLane;
       
       //create group if non-existent
-      if (!(lane = lanes_[laneID])) lanes_[laneID] = lane = new InList();
+      if (!(lane = laneDictionary_[laneID]))
+      {
+        //get lane from pool if pool is not empty
+        lane = (lanePool_.isEmpty())?(new ActionLane()):(lanePool_.get());
+        lane.id = laneID;
+        
+        laneDictionary_[laneID] = lane;
+        lanes_.push(lane);
+        laneOrderDirty_ = true;
+      }
       
       return lane;
     }
   }
+}
+
+import idv.cjcat.rusher.data.InList;
+
+class ActionLane
+{
+  public var id:int;
+  public var actions:InList = new InList();
+}
+
+function laneSorter(lhs:ActionLane, rhs:ActionLane):Number
+{
+  return lhs.id - rhs.id;
 }

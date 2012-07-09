@@ -2,45 +2,37 @@ package idv.cjcat.rusher.utils
 {
 	public class ObjectPool 
 	{
-    private var _ObjectClass:Class;
-    private var _objects:Array;
-    private var _firstEmptyIndex:uint;
+    private var objects_:Array = [];
+    private var size_   :uint  = 0;
     
-    public function ObjectPool(ObjectClass:Class) 
-    {
-      _ObjectClass = ObjectClass;
-      _objects = [new _ObjectClass()];
-      _firstEmptyIndex = 0;
-    }
+    public function isEmpty():Boolean { return size_ == 0; }
     
     public function get():*
     {
-      if (_firstEmptyIndex > 0)
-      {
-        --_firstEmptyIndex;
-        var obj:* = _objects[_firstEmptyIndex];
-        _ObjectClass[_firstEmptyIndex] = null;
-        
-        return obj;
-      }
-      return new _ObjectClass();
+      if (size_) return objects_[(size_--) - 1];
+      else throw Error("Object pool empty");
+      return null;
     }
     
-    public function recycle(object:*):void
+    public function put(object:*):void
     {
-      _objects[_firstEmptyIndex++] = object;
-      
-      //expand pool size
-      if (_firstEmptyIndex == _objects.length)
+      //pool full
+      if (objects_.length == size_)
       {
-        _objects.length <<= 1;
+        //non-empty, expand
+        if (objects_.length) objects_.length <<= 1;
+        //empty, set size to one first
+        else objects_.length = 1;
       }
+      
+      //put object into pool
+      objects_[size_++] = object;
     }
     
     public function clear():void 
     {
-      _objects.length = 0;
-      _firstEmptyIndex = 0;
+      objects_.length = 0;
+      size_ = 0;
     }
 	}
 }
