@@ -14,10 +14,11 @@ package idv.cjcat.rusher.input
     private static const STATUS_SIZE:int = 257;
     private static const MOUSE_KEY_CODE:int = 256;
     
-    private var prevDownStatus_ :Vector.<Boolean> = new Vector.<Boolean>(STATUS_SIZE, true);
-    private var downStatus_     :Vector.<Boolean> = new Vector.<Boolean>(STATUS_SIZE, true);
-    private var pressStatus_    :Vector.<Boolean> = new Vector.<Boolean>(STATUS_SIZE, true);
-    private var releasetatus_   :Vector.<Boolean> = new Vector.<Boolean>(STATUS_SIZE, true);
+    private var allKeyCodes_    :Dictionary = new Dictionary();
+    private var prevDownStatus_ :Dictionary = new Dictionary();
+    private var downStatus_     :Dictionary = new Dictionary();
+    private var pressStatus_    :Dictionary = new Dictionary();
+    private var releaseStatus_  :Dictionary = new Dictionary();
     
     private var mouseX_      :Number = 0;
     private var mouseY_      :Number = 0;
@@ -62,7 +63,7 @@ package idv.cjcat.rusher.input
      */
     public function isReleased(keyCode:uint):Boolean
     {
-      return releasetatus_[keyCode];
+      return releaseStatus_[keyCode];
     }
     
     /**
@@ -92,7 +93,7 @@ package idv.cjcat.rusher.input
      */
     public function mouseIsReleased():Boolean
     {
-      return releasetatus_[MOUSE_KEY_CODE];
+      return releaseStatus_[MOUSE_KEY_CODE];
     }
     
     public function mouseX()      :Number { return mouseX_;      }
@@ -104,15 +105,6 @@ package idv.cjcat.rusher.input
     override public function init():void
     {
       stage_ = getInstance(Stage);
-      
-      //claer all status
-      for (var i:int = 0; i < STATUS_SIZE; ++i)
-      {
-        prevDownStatus_[i] = false;
-        downStatus_    [i] = false;
-        pressStatus_   [i] = false;
-        releasetatus_  [i] = false;
-      }
       
       stage_.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown   , false, int.MAX_VALUE);
       stage_.addEventListener(KeyboardEvent.KEY_UP  , onKeyUp     , false, int.MAX_VALUE);
@@ -131,23 +123,34 @@ package idv.cjcat.rusher.input
       
       stage_ = null;
       
-      prevDownStatus_    = null;
-      downStatus_        = null;
-      pressStatus_       = null;
-      releasetatus_      = null;
+      //clear all keys
+      var key:*;
+      for (key in allKeyCodes_   ) delete allKeyCodes_   [key];
+      for (key in prevDownStatus_) delete prevDownStatus_[key];
+      for (key in downStatus_    ) delete downStatus_    [key];
+      for (key in pressStatus_   ) delete pressStatus_   [key];
+      for (key in releaseStatus_ ) delete releaseStatus_ [key];
+      
+      allKeyCodes_    = null;
+      prevDownStatus_ = null;
+      downStatus_     = null;
+      pressStatus_    = null;
+      releaseStatus_  = null;
     }
     
     override public function update(dt:Number):void
     {
       //update key status
-      for (var i:int = 0; i < STATUS_SIZE; ++i)
+      for (var key:* in allKeyCodes_)
       {
+        var keyCode:uint = key;
+        
         //fill in press and release status
-        pressStatus_   [i] =  downStatus_[i] && !prevDownStatus_[i];
-        releasetatus_  [i] = !downStatus_[i] &&  prevDownStatus_[i];
+        pressStatus_   [keyCode] =  Boolean(downStatus_[keyCode]) && !Boolean(prevDownStatus_[keyCode]);
+        releaseStatus_ [keyCode] = !Boolean(downStatus_[keyCode]) &&  Boolean(prevDownStatus_[keyCode]);
         
         //copy current status to previous
-        prevDownStatus_[i] =  downStatus_[i];
+        prevDownStatus_[keyCode] =  downStatus_[keyCode];
       }
       
       //update mouse status
@@ -161,19 +164,19 @@ package idv.cjcat.rusher.input
     
     private function onKeyDown(e:KeyboardEvent):void 
     {
-      if (e.keyCode < 0 || e.keyCode >= downStatus_.length) return;
 			downStatus_[e.keyCode] = true;
+      allKeyCodes_[e.keyCode] = e.keyCode;
     }
     
     private function onKeyUp(e:KeyboardEvent):void 
     {
-      if (e.keyCode < 0 || e.keyCode >= downStatus_.length) return;
       downStatus_[e.keyCode] = false;
     }
     
     private function onMouseDown(e:MouseEvent):void
     {
       downStatus_[MOUSE_KEY_CODE] = true;
+      allKeyCodes_[MOUSE_KEY_CODE] = MOUSE_KEY_CODE;
     }
     
     private function onMouseUp(e:MouseEvent):void
