@@ -79,7 +79,7 @@ package idv.cjcat.rusher.utils.geom {
 		public function projectThis(target:Vec2D):Vec2D
     {
 			var temp:Vec2D = pool_.get();
-      temp.set(target.x_, target.y_).normalize().setLenth(this.dot(temp));
+      temp.set(target.x_, target.y_).normalize().setLength(this.dot(temp));
 			x_ = temp.x_;
 			y_ = temp.y_;
 			pool_.put(temp);
@@ -150,7 +150,7 @@ package idv.cjcat.rusher.utils.geom {
     {
 			return Math.sqrt(x_ * x_ + y_ * y_);
 		}
-		public function setLenth(value:Number):void
+		public function setLength(value:Number):void
     {
 			if ((x_ == 0) && (y_ == 0)) return;
 			var factor:Number = value / length();
