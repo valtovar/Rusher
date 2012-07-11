@@ -32,18 +32,20 @@ package idv.cjcat.rusher.action.greensock
       {
         if (!vars) vars = { };
         vars.paused = true;
+        vars.overwrite = false;
         tween_ = TweenLite.from(target_, duration_, vars);
-        time_ = 0;
-        tween_.renderTime(0);
+        tween_.renderTime(time_ = 0.0);
         
         onCancelled.addOnce(tween_.kill);
       }
       else
       {
-        time_ += dt;
-        tween_.renderTime(time_);
-        if (time_ >= duration_) complete();
+        tween_.renderTime(time_ += dt);
+        if (time_ >= duration_) 
+        {
+          tween_.kill();
+          complete();
+        }
       }
-    }
   }
 }
