@@ -97,7 +97,11 @@ package idv.cjcat.rusher.action
               }
               
               //action does not update instantly after init if it's not completed, continue
-              if (!action.instantUpdate_) continue;
+              if (!action.instantUpdate_)
+              {
+                iter.next();
+                continue;
+              }
             }
             
             //update action
@@ -133,7 +137,10 @@ package idv.cjcat.rusher.action
         }
       }
       
-      if (size_ == 0 && autoComplete_) complete();
+      if (size_ == 0 && autoComplete_)
+      {
+        complete();
+      }
     }
     
     
