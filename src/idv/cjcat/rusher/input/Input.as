@@ -164,12 +164,30 @@ package idv.cjcat.rusher.input
     
     private function onKeyDown(e:KeyboardEvent):void 
     {
+      //cancel default special device key behaviors
+      switch (e.keyCode)
+      {
+        case Key.BACK:
+        case Key.MENU:
+        case Key.SEARCH:
+          e.preventDefault();
+      }
+      
 			downStatus_[e.keyCode] = true;
       allKeyCodes_[e.keyCode] = e.keyCode;
     }
     
     private function onKeyUp(e:KeyboardEvent):void 
     {
+      //cancel default special device key behaviors
+      switch (e.keyCode)
+      {
+        case Key.BACK:
+        case Key.MENU:
+        case Key.SEARCH:
+          e.preventDefault();
+      }
+      
       downStatus_[e.keyCode] = false;
     }
     
