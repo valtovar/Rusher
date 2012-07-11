@@ -1,0 +1,4 @@
+The SWC binary file might not be up to date to the source code. 
+To ensure that you're coding against the latest revision, 
+compile directly with the source code or build a SWC binary 
+file yourself using the compc compiler in Flex SDK.
