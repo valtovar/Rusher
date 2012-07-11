@@ -24,7 +24,7 @@ package idv.cjcat.rusher.engine
       var i:int, len:int;
       for (i = 0, len = systems_.length; i < len; ++i)
       {
-        systems_[i].update(dt);
+        if (systems_[i].active) systems_[i].update(dt);
       }
       
       //remove entities marked for destruction from engine
