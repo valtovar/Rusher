@@ -21,7 +21,7 @@ package idv.cjcat.rusher.data
     
     public function pushBack(node:InListNode):void
     {
-      if (node.next || node.prev) throw new IllegalOperationError("Node already belongs to a list.");
+      if (node.list) throw new IllegalOperationError("Node already belongs to a list.");
       
       tail.prev.next = node;
       node.prev = tail.prev;
@@ -36,7 +36,7 @@ package idv.cjcat.rusher.data
     
     public function pushFront(node:InListNode):void
     {
-      if (node.next || node.prev) throw new IllegalOperationError("Node already belongs to a list.");
+      if (node.list) throw new IllegalOperationError("Node already belongs to a list.");
       
       head.next.prev = node;
       node.next = head.next;
@@ -55,6 +55,9 @@ package idv.cjcat.rusher.data
       
       node.prev.next = node.next;
       node.next.prev = node.prev;
+      
+      node.next = null;
+      node.prev = null;
       
       node.list = null;
       
