@@ -42,6 +42,10 @@ package idv.cjcat.rusher.input {
      */
     public static const B:uint = 66;
     /**
+     * Constant associated with the key code value for the back key on certain devices (0x01000016).
+     */
+    public static const BACK:uint = 0x01000016;
+    /**
      * Constant associated with the key code value for the ` key (192).
      */
     public static const BACKQUOTE:uint = 192;
@@ -265,6 +269,10 @@ package idv.cjcat.rusher.input {
      * Constant associated with the key code value for the M key (77).
      */
     public static const M:uint = 77;
+    /**
+     * Constant associated with the key code value for the menu key on certain devices (0x01000012).
+     */
+    public static const MENU:uint = 0x01000012;
     public static const MenuString:String = "?";
     /**
      * Constant associated with the key code value for the - key (189).
@@ -439,6 +447,10 @@ package idv.cjcat.rusher.input {
      */
     public static const S:uint = 83;
     public static const ScrollLockString:String = "?";
+    /**
+     * Constant associated with the key code value for the search key on certain devices (0x0100001F).
+     */
+    public static const SEARCH:uint = 0x0100001F;
     public static const SelectString:String = "?";
     /**
      * Constant associated with the key code value for the ; key (186).
