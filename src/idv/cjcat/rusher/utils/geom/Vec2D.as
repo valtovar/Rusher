@@ -150,13 +150,14 @@ package idv.cjcat.rusher.utils.geom {
     {
 			return Math.sqrt(x_ * x_ + y_ * y_);
 		}
-		public function setLength(value:Number):void
+		public function setLength(value:Number):Vec2D
     {
 			if ((x_ == 0) && (y_ == 0)) return;
 			var factor:Number = value / length();
 			
 			x_ = x_ * factor;
 			y_ = y_ * factor;
+      return this;
 		}
     public function lengthSQ():Number
     {
