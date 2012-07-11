@@ -152,7 +152,7 @@ package idv.cjcat.rusher.utils.geom {
 		}
 		public function setLength(value:Number):Vec2D
     {
-			if ((x_ == 0) && (y_ == 0)) return;
+			if ((x_ == 0) && (y_ == 0)) return this;
 			var factor:Number = value / length();
 			
 			x_ = x_ * factor;
