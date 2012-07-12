@@ -180,9 +180,9 @@ package idv.cjcat.rusher.action
       //cancel all underlying actions
       for (var key:* in laneDictionary_)
       {
-        var group:InList = laneDictionary_[key];
+        var lane:ActionLane = laneDictionary_[key];
         var action:Action;
-        var iter:InListIterator = group.getIterator();
+        var iter:InListIterator = lane.actions.getIterator();
         
         while (action = iter.data())
         {
