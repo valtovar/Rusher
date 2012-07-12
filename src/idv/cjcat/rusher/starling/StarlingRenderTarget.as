@@ -30,14 +30,8 @@ package idv.cjcat.rusher.starling
     
     override public function init():void 
     {
-      displayObject = cachedDisplayObject_;
-      
-      var renderer:StarlingRenderer = getInstance(StarlingRenderer);
-      getInstance(StarlingRenderer).register(this);
-      if (renderer.defaultContainer && displayObject_ && !displayObject_.parent)
-      {
-        renderer.defaultContainer.addChild(displayObject_);
-      }
+      this.displayObject = cachedDisplayObject_;
+      StarlingRenderer(getInstance(StarlingRenderer)).register(this);
     }
     
     override public function dispose():void 
