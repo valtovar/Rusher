@@ -15,14 +15,14 @@ package idv.cjcat.rusher.action
       initActions_ = actions;
     }
     
-    public function pushBack(action:Action, groupID:int = 0):void
+    public function pushBack(action:Action, laneID:int = 0):void
     {
-      actions_.pushBack(action, groupID);
+      actions_.pushBack(action, laneID);
     }
     
-    public function pushFront(action:Action, groupID:int = 0):void
+    public function pushFront(action:Action, laneID:int = 0):void
     {
-      actions_.pushFront(action, groupID);
+      actions_.pushFront(action, laneID);
     }
     
     public function register(actionComponent:ActionComponent):void

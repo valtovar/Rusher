@@ -63,7 +63,7 @@ package idv.cjcat.rusher.action
         lane = lanes_[i];
         laneActions = lane.actions;
         
-        //iterate through actions in the current group
+        //iterate through actions in the current lane
         var action:Action;
         var iter:InListIterator = laneActions.getIterator();
         while (action = iter.data())
@@ -201,7 +201,7 @@ package idv.cjcat.rusher.action
     {
       var lane:ActionLane;
       
-      //create group if non-existent
+      //create lane if non-existent
       if (!(lane = laneDictionary_[laneID]))
       {
         //get lane from pool if pool is not empty
