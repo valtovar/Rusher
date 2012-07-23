@@ -86,7 +86,7 @@ package idv.cjcat.rusher.engine
       return injector_.getInstance(SystemClass);
     }
     
-    private var entityCounter_:int = 0;
+    private var entityCounter_:uint = 0;
     public function createEntity(name:String = null):Entity
     {
       //check duplicate entity name
