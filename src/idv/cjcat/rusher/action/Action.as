@@ -11,15 +11,17 @@ package idv.cjcat.rusher.action
     
     private var onStarted_  :ISignal = new Signal();
     private var onCompleted_:ISignal = new Signal();
-    private var onPaused_   :ISignal = new Signal();
-    private var onResumed_  :ISignal = new Signal();
     private var onCancelled_:ISignal = new Signal();
+    private var onPaused_   :ISignal = new Signal();
+    private var onFinished_ :ISignal = new Signal();
+    private var onResumed_  :ISignal = new Signal();
     
     public function get onStarted  ():ISignal { return onStarted_  ; }
     public function get onCompleted():ISignal { return onCompleted_; }
+    public function get onCancelled():ISignal { return onCancelled_; }
+    public function get onFinished ():ISignal { return onFinished_ ; }
     public function get onPaused   ():ISignal { return onPaused_   ; }
     public function get onResumed  ():ISignal { return onResumed_  ; }
-    public function get onCancelled():ISignal { return onCancelled_; }
     
     //-------------------------------------------------------------------------
     //end of signals
@@ -40,13 +42,13 @@ package idv.cjcat.rusher.action
     internal var isStarted_  :Boolean = false;
     
     private var isBlocking_  :Boolean = false;
-    private var isCompleted_ :Boolean = false;
+    private var isFinished_ :Boolean = false;
     private var isPaused_    :Boolean = false;
     
-    public final function isStarted  ():Boolean { return isStarted_  ; }
-    public final function isBlocking ():Boolean { return isBlocking_ ; }
-    public final function isCompleted():Boolean { return isCompleted_; }
-    public final function isPaused   ():Boolean { return isPaused_;    }
+    public final function isStarted ():Boolean { return isStarted_ ; }
+    public final function isBlocking():Boolean { return isBlocking_; }
+    public final function isFinished():Boolean { return isFinished_; }
+    public final function isPaused  ():Boolean { return isPaused_  ; }
     
     public function update(dt:Number):void
     { }
@@ -62,8 +64,9 @@ package idv.cjcat.rusher.action
     //only the action can complete itself
     protected final function complete():void
     {
-      isCompleted_ = true;
+      isFinished_ = true;
       onCompleted.dispatch();
+      onFinished.dispatch();
     }
     
     public final function pause():void
@@ -80,8 +83,9 @@ package idv.cjcat.rusher.action
     
     public final function cancel():void
     {
+      isFinished_ = true;
       onCancelled.dispatch();
-      complete();
+      onFinished.dispatch();
     }
   }
 }

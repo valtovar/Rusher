@@ -23,7 +23,7 @@ package idv.cjcat.rusher.action
     {
       super(instantUpdate);
       autoComplete_ = autoComplete;
-      onCancelled.add(cancelSubactions);
+      onCancelled.addOnce(cancelSubactions);
     }
     
     public function pushBack(action:Action, laneID:int = 0):void
@@ -49,7 +49,7 @@ package idv.cjcat.rusher.action
     
     override public function update(dt:Number):void
     {
-      if (isPaused() || isCompleted()) return;
+      if (isPaused() || isFinished()) return;
       
       //lane order dirty, sort
       if (laneOrderDirty_) lanes_.sort(laneSorter);
@@ -69,7 +69,7 @@ package idv.cjcat.rusher.action
         while (action = iter.data())
         {
           //action completed before update, remove and continue
-          if (action.isCompleted())
+          if (action.isFinished())
           {
             iter.remove();
             --size_;
@@ -89,7 +89,7 @@ package idv.cjcat.rusher.action
               action.isStarted_ = true;
               
               //action cancelled or completed after init, remove and continue
-              if (action.isCompleted())
+              if (action.isFinished())
               {
                 iter.remove();
                 --size_;
@@ -111,7 +111,7 @@ package idv.cjcat.rusher.action
             action.update(dt);
             
             //action cancelled or completed after update, remove and continue
-            if (action.isCompleted())
+            if (action.isFinished())
             {
               iter.remove();
               --size_;
@@ -189,7 +189,7 @@ package idv.cjcat.rusher.action
         
         while (action = iter.data())
         {
-          if (!action.isCompleted()) action.cancel();
+          if (!action.isFinished()) action.cancel();
           iter.next();
         }
         
