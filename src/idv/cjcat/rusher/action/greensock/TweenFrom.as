@@ -47,5 +47,6 @@ package idv.cjcat.rusher.action.greensock
           complete();
         }
       }
+    }
   }
 }
