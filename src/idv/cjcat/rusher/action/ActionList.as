@@ -99,6 +99,9 @@ package idv.cjcat.rusher.action
               //action does not update instantly after init if it's not completed, continue
               if (!action.instantUpdate_)
               {
+                //action is blocking, break
+                if (action.isBlocking()) break;
+                
                 iter.next();
                 continue;
               }

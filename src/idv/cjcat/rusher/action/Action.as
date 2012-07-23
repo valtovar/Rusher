@@ -51,8 +51,8 @@ package idv.cjcat.rusher.action
     public function update(dt:Number):void
     { }
     
-    public final function block   ():void { isBlocking_  = true;  }
-    public final function unblock ():void { isBlocking_  = false; }
+    public final function block   ():Action { isBlocking_  = true;  return this; }
+    public final function unblock ():Action { isBlocking_  = false; return this; }
     
     public function Action(instantUpdate:Boolean = false)
     {
