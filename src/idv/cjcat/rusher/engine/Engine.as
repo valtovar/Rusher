@@ -92,7 +92,7 @@ package idv.cjcat.rusher.engine
       //check duplicate entity name
       if (injector_.satisfies(Entity, name)) throw new Error("Entity named\"" + name + "\" already exists.");
       
-      if (!name) name = "entity" + entityCounter_++;
+      if (!name) name = "__entity" + entityCounter_++;
       
       //add entity to engine
       var entity:Entity = new Entity(name);
