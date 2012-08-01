@@ -82,7 +82,7 @@ package idv.cjcat.rusher.action
             //first update, call onStarted()
             if (!action.isStarted_) 
             {
-              //set iterator & lane ID (key)
+              //set injector & lane ID (key)
               injectDependency(action);
               
               action.onStarted.dispatch();
