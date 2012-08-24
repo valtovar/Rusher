@@ -72,6 +72,10 @@ package idv.cjcat.rusher.engine
       
       var component:IComponent = getComponent(ComponentClass);
       
+      //unmap component
+      injector.unmap(ComponentClass);
+      injector.parentInjector.unmap(ComponentClass, name());
+      
       //remove component from entity
       component.dispose();
       component.setInjector(null);
