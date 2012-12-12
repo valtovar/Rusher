@@ -2,26 +2,25 @@ package idv.cjcat.rusher.render2d
 {
   import flash.display.DisplayObject;
   import flash.display.DisplayObjectContainer;
-  import flash.geom.Transform;
-  import idv.cjcat.rusher.component.Transform2D;
   import idv.cjcat.rusher.data.InList;
   import idv.cjcat.rusher.data.InListIterator;
   import idv.cjcat.rusher.engine.System;
+  import idv.cjcat.rusher.engine.Transform2D;
 	
   public class Renderer2D extends System
   {
-    private var targets_:InList = new InList();
+    private var renderables_:InList = new InList();
     
     /** @private */
-    internal function register(target:RenderTarget2D):void
+    internal function register(target:Renderable2D):void
     {
-      targets_.pushBack(target);
+      renderables_.pushBack(target);
     }
     
     /** @private */
-    internal function unregister(target:RenderTarget2D):void
+    internal function unregister(target:Renderable2D):void
     {
-      targets_.remove(target);
+      renderables_.remove(target);
     }
     
     /** @private */
@@ -33,17 +32,19 @@ package idv.cjcat.rusher.render2d
     
     override public function update(dt:Number):void 
     {
-      var iter:InListIterator = targets_.getIterator();
-      var target:RenderTarget2D;
-      while (target = iter.data())
+      var iter:InListIterator = renderables_.getIterator();
+      var renderable:Renderable2D;
+      while (renderable = iter.data())
       {
-        var displayObject:DisplayObject = target.displayObject;
+        var displayObject:DisplayObject = renderable.displayObject;
         if (displayObject)
         {
-          var transform:Transform2D = target.getInstance(Transform2D);
-          var displayTransform:Transform = displayObject.transform;
-          displayTransform.matrix = transform.calculateMatrix();
-          displayObject.transform = displayTransform;
+          var transform:Transform2D = renderable.getInstance(Transform2D);
+          displayObject.x        = transform.x;
+          displayObject.y        = transform.y;
+          displayObject.rotation = transform.rotation;
+          displayObject.scaleX   = transform.scaleX;
+          displayObject.scaleY   = transform.scaleY;
         }
         
         iter.next();

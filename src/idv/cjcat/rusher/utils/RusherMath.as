@@ -2,10 +2,16 @@ package idv.cjcat.rusher.utils {
     
     public class RusherMath {
         
-        public static const HALF_PI:Number = 0.5 * Math.PI;
-        public static const TWO_PI:Number = 2 * Math.PI;
-        public static const DEGREE_TO_RADIAN:Number = Math.PI / 180;
-        public static const RADIAN_TO_DEGREE:Number = 180 / Math.PI;
+        public static const PI_2  :Number = Math.PI / 2.0;
+        public static const PI_3  :Number = Math.PI / 3.0;
+        public static const PI_4  :Number = Math.PI / 4.0;
+        public static const PI_5  :Number = Math.PI / 5.0;
+        public static const PI_6  :Number = Math.PI / 6.0;
+        public static const PI_7  :Number = Math.PI / 7.0;
+        public static const PI_8  :Number = Math.PI / 8.0;
+        public static const TWO_PI:Number = 2.0 * Math.PI;
+        public static const DEGREE_TO_RADIAN:Number = Math.PI / 180.0;
+        public static const RADIAN_TO_DEGREE:Number = 180.0 / Math.PI;
         
         /**
          * Clamps a value within bounds.

@@ -37,6 +37,7 @@ package idv.cjcat.rusher.engine
         
         //unroll dependency
         injector_.unmap(Entity, entity.name());
+        injector_.unmap(Transform2D, entity.name());
         entity.setInjector(null);
       }
       entitiesToDestroy_.length = 0;
@@ -97,10 +98,12 @@ package idv.cjcat.rusher.engine
       //add entity to engine
       var entity:Entity = new Entity(name);
       injector_.map(Entity, name).toValue(entity);
+      injector_.map(Transform2D, name).toValue(entity.transform);
       
       //inject child injector
       var childInjector:Injector = injector_.createChildInjector();
       childInjector.map(Entity).toValue(entity);
+      childInjector.map(Transform2D).toValue(entity);
       entity.setInjector(childInjector);
       
       return entity;

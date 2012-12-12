@@ -4,7 +4,7 @@ package idv.cjcat.rusher.render2d
   import flash.display.Sprite;
   import idv.cjcat.rusher.engine.Component;
   
-  public class RenderTarget2D extends Component
+  public class Renderable2D extends Component
   {
     /** @private */
     internal var displayObject_:DisplayObject;
@@ -14,7 +14,7 @@ package idv.cjcat.rusher.render2d
       displayObject_ = value;
     }
     
-    public function RenderTarget2D(displayObject:DisplayObject = null)
+    public function Renderable2D(displayObject:DisplayObject = null)
     {
       this.displayObject = displayObject;
     }

@@ -4,7 +4,7 @@ package idv.cjcat.rusher.starling
   import starling.display.BlendMode;
   import starling.display.DisplayObject;
   
-  public class StarlingRenderTarget extends Component
+  public class StarlingRenderable extends Component
   {
     /** @private */
     internal var displayObject_:DisplayObject;
@@ -23,7 +23,7 @@ package idv.cjcat.rusher.starling
     }
     
     private var cachedDisplayObject_:DisplayObject;
-    public function StarlingRenderTarget(displayObject:DisplayObject = null)
+    public function StarlingRenderable(displayObject:DisplayObject = null)
     {
       cachedDisplayObject_ = displayObject;
     }
