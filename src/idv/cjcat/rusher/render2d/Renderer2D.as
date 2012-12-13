@@ -7,7 +7,7 @@ package idv.cjcat.rusher.render2d
   import idv.cjcat.rusher.data.InListIterator;
   import idv.cjcat.rusher.engine.System;
 	
-  public class Renderer2D extends System 
+  public class Renderer2D extends System
   {
     private var renderables_:InList = new InList();
     
