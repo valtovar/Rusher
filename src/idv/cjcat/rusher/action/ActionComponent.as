@@ -8,7 +8,7 @@ package idv.cjcat.rusher.action
     
     private var initAction_:Action;
     private var initActionLane_:uint;
-    public function ActionComponent(initAction:Action, initActionLane:uint = 0)
+    public function ActionComponent(initAction:Action = null, initActionLane:uint = 0)
     {
       initAction_ = initAction;
       initActionLane_ = initActionLane;
