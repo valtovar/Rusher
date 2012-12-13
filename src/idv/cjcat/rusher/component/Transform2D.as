@@ -1,12 +1,26 @@
-package idv.cjcat.rusher.engine 
+package idv.cjcat.rusher.component 
 {
-  public class Transform2D
+  import idv.cjcat.rusher.engine.Component;
+  
+  public class Transform2D extends Component
   {
     public var x       :Number = 0.0;
     public var y       :Number = 0.0;
     public var rotation:Number = 0.0;
     public var scaleX  :Number = 1.0;
     public var scaleY  :Number = 1.0;
+    
+    public function Transform2D
+    (
+      x       :Number = 0.0, 
+      y       :Number = 0.0, 
+      rotation:Number = 0.0, 
+      scaleX  :Number = 1.0, 
+      scaleY  :Number = 1.0
+    )
+    {
+      set(x, y, rotation, scaleX, scaleY);
+    }
     
     public function set
     (

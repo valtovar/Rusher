@@ -1,9 +1,9 @@
 package idv.cjcat.rusher.starling 
 {
+  import idv.cjcat.rusher.component.Transform2D;
   import idv.cjcat.rusher.data.InList;
   import idv.cjcat.rusher.data.InListIterator;
   import idv.cjcat.rusher.engine.System;
-  import idv.cjcat.rusher.engine.Transform2D;
   import starling.display.DisplayObject;
   import starling.display.DisplayObjectContainer;
 	

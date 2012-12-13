@@ -2,10 +2,10 @@ package idv.cjcat.rusher.render2d
 {
   import flash.display.DisplayObject;
   import flash.display.DisplayObjectContainer;
+  import idv.cjcat.rusher.component.Transform2D;
   import idv.cjcat.rusher.data.InList;
   import idv.cjcat.rusher.data.InListIterator;
   import idv.cjcat.rusher.engine.System;
-  import idv.cjcat.rusher.engine.Transform2D;
 	
   public class Renderer2D extends System
   {

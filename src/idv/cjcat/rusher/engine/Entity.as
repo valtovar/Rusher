@@ -12,9 +12,6 @@ package idv.cjcat.rusher.engine
     private var parent_:Entity = null;
     public function getParent():Entity { return parent_; }
     
-    private var transform_:Transform2D = new Transform2D;
-    public function get transform():Transform2D { return transform_; }
-    
     private var components_:Dictionary = new Dictionary();
     private var children_:Dictionary = new Dictionary();
     

@@ -9,10 +9,12 @@ package idv.cjcat.rusher.action
     private var actions_:ActionList = new ActionList(false);
     private var actionComponents_:InList = new InList();
     
-    private var initActions_:Array;
-    public function ActionSystem(...actions)
+    private var initAction_:Action;
+    private var initActionLane_:uint;
+    public function ActionSystem(initAction:Action, initActionLane:uint = 0)
     {
-      initActions_ = actions;
+      initAction_ = initAction;
+      initActionLane_ = initActionLane;
     }
     
     public function pushBack(action:Action, laneID:int = 0):void
@@ -39,11 +41,11 @@ package idv.cjcat.rusher.action
     {
       actions_.setInjector(getInjector());
       
-      for (var i:int = 0, len:int = initActions_.length; i < len; ++i)
+      if (initAction_)
       {
-        pushBack(initActions_[i]);
+        pushBack(initAction_, initActionLane_);
+        initAction_ = null;
       }
-      initActions_ = null;
     }
     
     override public function dispose():void 
