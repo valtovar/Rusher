@@ -1,6 +1,7 @@
 package idv.cjcat.rusher.render2d 
 {
   import flash.display.DisplayObject;
+  import flash.display.DisplayObjectContainer;
   import flash.display.Sprite;
   import idv.cjcat.rusher.engine.Component;
   
@@ -14,9 +15,10 @@ package idv.cjcat.rusher.render2d
       displayObject_ = value;
     }
     
-    public function Renderable2D(displayObject:DisplayObject = null)
+    public function Renderable2D(displayObject:DisplayObject = null, parent:DisplayObjectContainer = null)
     {
       this.displayObject = displayObject;
+      if (parent) parent.addChild(displayObject);
     }
     
     override public function init():void 

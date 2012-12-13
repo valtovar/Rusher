@@ -2,6 +2,7 @@ package idv.cjcat.rusher.render2d
 {
   import flash.display.DisplayObject;
   import flash.display.DisplayObjectContainer;
+  import flash.display.Stage;
   import idv.cjcat.rusher.component.Transform2D;
   import idv.cjcat.rusher.data.InList;
   import idv.cjcat.rusher.data.InListIterator;
@@ -28,6 +29,11 @@ package idv.cjcat.rusher.render2d
     public function Renderer2D(defaultContainer:DisplayObjectContainer = null)
     {
       defaultContainer_ = defaultContainer;
+    }
+    
+    override public function init():void 
+    {
+      if (!defaultContainer_) defaultContainer_ = getInstance(Stage);
     }
     
     override public function update(dt:Number):void 
