@@ -1,4 +1,4 @@
-package idv.cjcat.rusher.example
+package rusher.example
 {
   import flash.display.Bitmap;
   import flash.display.DisplayObjectContainer;

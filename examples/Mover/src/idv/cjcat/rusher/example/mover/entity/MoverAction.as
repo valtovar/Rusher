@@ -1,11 +1,11 @@
-package idv.cjcat.rusher.example.mover.entity 
+package rusher.example.mover.entity 
 {
   import flash.display.Stage;
-  import idv.cjcat.rusher.action.Action;
-  import idv.cjcat.rusher.component.Transform2D;
-  import idv.cjcat.rusher.input.Input;
-  import idv.cjcat.rusher.input.Key;
-  import idv.cjcat.rusher.utils.RusherMath;
+  import rusher.action.Action;
+  import rusher.component.Transform2D;
+  import rusher.input.Input;
+  import rusher.input.Key;
+  import rusher.utils.RusherMath;
 	
   public class MoverAction extends Action
   {

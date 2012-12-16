@@ -1,4 +1,4 @@
-package idv.cjcat.rusher.example.mover.entity 
+package rusher.example.mover.entity 
 {
   import flash.display.Shape;
   

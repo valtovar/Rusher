@@ -1,15 +1,15 @@
-package idv.cjcat.rusher.example.mover
+package rusher.example.mover
 {
   import flash.display.DisplayObject;
   import flash.events.Event;
   import flash.utils.Dictionary;
   import flash.utils.getTimer;
-  import idv.cjcat.rusher.action.ActionSystem;
-  import idv.cjcat.rusher.engine.Engine;
-  import idv.cjcat.rusher.example.mover.engine.StartUp;
-  import idv.cjcat.rusher.example.RusherExample;
-  import idv.cjcat.rusher.input.Input;
-  import idv.cjcat.rusher.render2d.Renderer2D;
+  import rusher.action.ActionSystem;
+  import rusher.engine.Engine;
+  import rusher.example.mover.engine.StartUp;
+  import rusher.example.RusherExample;
+  import rusher.input.Input;
+  import rusher.render2d.Renderer2D;
   
   [SWF(width="640", height="480", backgroundColor="#000000", frameRate="60")]
 	public class Main extends RusherExample

@@ -1,13 +1,13 @@
-package idv.cjcat.rusher.example.mover.engine 
+package rusher.example.mover.engine 
 {
-  import idv.cjcat.rusher.action.Action;
-  import idv.cjcat.rusher.action.ActionComponent;
-  import idv.cjcat.rusher.component.Transform2D;
-  import idv.cjcat.rusher.engine.Engine;
-  import idv.cjcat.rusher.engine.Entity;
-  import idv.cjcat.rusher.example.mover.entity.MoverAction;
-  import idv.cjcat.rusher.example.mover.entity.MoverShape;
-  import idv.cjcat.rusher.render2d.Renderable2D;
+  import rusher.action.Action;
+  import rusher.action.ActionComponent;
+  import rusher.component.Transform2D;
+  import rusher.engine.Engine;
+  import rusher.engine.Entity;
+  import rusher.example.mover.entity.MoverAction;
+  import rusher.example.mover.entity.MoverShape;
+  import rusher.render2d.Renderable2D;
 	
   public class StartUp extends Action
   {
