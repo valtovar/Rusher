@@ -147,6 +147,68 @@ package rusher.action
     }
     
     
+    //lane commands
+    //-------------------------------------------------------------------------
+    
+    public function cancelLane(laneID:int = 0):void
+    {
+      var iter:InListIterator = getLane(laneID).actions.getIterator();
+      var action:Action;
+      while (action = iter.data())
+      {
+        action.cancel();
+        iter.next();
+      }
+    }
+    
+    public function pauseLane(laneID:int = 0):void
+    {
+      var iter:InListIterator = getLane(laneID).actions.getIterator();
+      var action:Action;
+      while (action = iter.data())
+      {
+        action.pause();
+        iter.next();
+      }
+    }
+    
+    public function resumeLane(laneID:int = 0):void
+    {
+      var iter:InListIterator = getLane(laneID).actions.getIterator();
+      var action:Action;
+      while (action = iter.data())
+      {
+        action.resume();
+        iter.next();
+      }
+    }
+    
+    public function blockLane(laneID:int = 0):void
+    {
+      var iter:InListIterator = getLane(laneID).actions.getIterator();
+      var action:Action;
+      while (action = iter.data())
+      {
+        action.block();
+        iter.next();
+      }
+    }
+    
+    public function unblockLane(laneID:int = 0):void
+    {
+      var iter:InListIterator = getLane(laneID).actions.getIterator();
+      var action:Action;
+      while (action = iter.data())
+      {
+        action.unblock();
+        iter.next();
+      }
+    }
+    
+    //-------------------------------------------------------------------------
+    //end of lane commands
+    
+    
     //utility functions
     //-------------------------------------------------------------------------
     
