@@ -1,6 +1,6 @@
-package rusher.action.greensock
+package rusher.extension.greensock
 {
-  import com.greensock.TweenLite;
+  import com.greensock.TweenMax;
   import rusher.action.Action;
   
   public class TweenTo extends Action
@@ -25,7 +25,7 @@ package rusher.action.greensock
     }
     
     private var time_:Number;
-    private var tween_:TweenLite;
+    private var tween_:TweenMax;
     override public function update(dt:Number):void 
     {
       if (!tween_) 
@@ -33,7 +33,7 @@ package rusher.action.greensock
         if (!vars) vars = { };
         vars.paused = true;
         vars.overwrite = false;
-        tween_ = TweenLite.to(target_, duration_, vars);
+        tween_ = TweenMax.to(target_, duration_, vars);
         tween_.renderTime(time_ = 0.0);
         
         onCancelled.addOnce(tween_.kill);

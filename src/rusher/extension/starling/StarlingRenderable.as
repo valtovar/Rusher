@@ -1,4 +1,4 @@
-package rusher.starling 
+package rusher.extension.starling 
 {
   import rusher.engine.Component;
   import starling.display.BlendMode;

@@ -1,4 +1,4 @@
-package rusher.starling 
+package rusher.extension.starling 
 {
   import rusher.component.Transform2D;
   import rusher.data.InList;
