@@ -19,6 +19,12 @@ package rusher.engine
       return IComponent(getInstance(ComponentClass));
     }
     
+    public function hasComponent(ComponentClass:Class):*
+    {
+      if (getInjector().satisfies(ComponentClass)) return null;
+      return getComponent(ComponentClass);
+    }
+    
     public function Entity(name:String)
     {
       name_ = name;
