@@ -26,18 +26,20 @@ package rusher.action
       onCancelled.addOnce(cancelSubactions);
     }
     
-    public function pushBack(action:Action, laneID:int = 0):void
+    public function pushBack(action:Action, laneID:int = 0):ActionList
     {
       getLane(laneID).actions.pushBack(action);
       action.laneID_ = laneID;
       ++size_;
+      return this;
     }
     
-    public function pushFront(action:Action, laneID:int = 0):void
+    public function pushFront(action:Action, laneID:int = 0):ActionList
     {
       getLane(laneID).actions.pushFront(action);
       action.laneID_ = laneID;
       ++size_;
+      return this;
     }
     
     private function injectDependency(action:Action):void
@@ -150,7 +152,7 @@ package rusher.action
     //lane commands
     //-------------------------------------------------------------------------
     
-    public function cancelLane(laneID:int = 0):void
+    public function cancelLane(laneID:int = 0):ActionList
     {
       var iter:InListIterator = getLane(laneID).actions.getIterator();
       var action:Action;
@@ -159,9 +161,10 @@ package rusher.action
         action.cancel();
         iter.next();
       }
+      return this;
     }
     
-    public function pauseLane(laneID:int = 0):void
+    public function pauseLane(laneID:int = 0):ActionList
     {
       var iter:InListIterator = getLane(laneID).actions.getIterator();
       var action:Action;
@@ -170,9 +173,10 @@ package rusher.action
         action.pause();
         iter.next();
       }
+      return this;
     }
     
-    public function resumeLane(laneID:int = 0):void
+    public function resumeLane(laneID:int = 0):ActionList
     {
       var iter:InListIterator = getLane(laneID).actions.getIterator();
       var action:Action;
@@ -181,9 +185,10 @@ package rusher.action
         action.resume();
         iter.next();
       }
+      return this;
     }
     
-    public function blockLane(laneID:int = 0):void
+    public function blockLane(laneID:int = 0):ActionList
     {
       var iter:InListIterator = getLane(laneID).actions.getIterator();
       var action:Action;
@@ -192,9 +197,10 @@ package rusher.action
         action.block();
         iter.next();
       }
+      return this;
     }
     
-    public function unblockLane(laneID:int = 0):void
+    public function unblockLane(laneID:int = 0):ActionList
     {
       var iter:InListIterator = getLane(laneID).actions.getIterator();
       var action:Action;
@@ -203,6 +209,7 @@ package rusher.action
         action.unblock();
         iter.next();
       }
+      return this;
     }
     
     //-------------------------------------------------------------------------

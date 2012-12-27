@@ -14,14 +14,46 @@ package rusher.action
       initActionLane_ = initActionLane;
     }
     
-    public function pushBack(action:Action, laneID:int = 0):void
+    public function pushBack(action:Action, laneID:int = 0):ActionComponent
     {
       actions_.pushBack(action, laneID);
+      return this;
     }
     
-    public function pushFront(action:Action, laneID:int = 0):void
+    public function pushFront(action:Action, laneID:int = 0):ActionComponent
     {
       actions_.pushFront(action, laneID);
+      return this;
+    }
+    
+    public function cancelLane(laneID:int = 0):ActionComponent
+    {
+      actions_.cancelLane(laneID);
+      return this;
+    }
+    
+    public function pauseLane(laneID:int = 0):ActionComponent
+    {
+      actions_.pauseLane(laneID);
+      return this;
+    }
+    
+    public function resumeLane(laneID:int = 0):ActionComponent
+    {
+      actions_.resumeLane(laneID);
+      return this;
+    }
+    
+    public function blockLane(laneID:int = 0):ActionComponent
+    {
+      actions_.blockLane(laneID);
+      return this;
+    }
+    
+    public function unblockLane(laneID:int = 0):ActionComponent
+    {
+      actions_.unblockLane(laneID);
+      return this;
     }
     
     override public function init():void 
