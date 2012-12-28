@@ -55,6 +55,13 @@ package rusher.utils
         return (remainder < 0)?(remainder + value2):(remainder);
     }
     
+    public static function sign(value:Number):int
+    {
+      if (value > 0.0) return  1;
+      if (value < 0.0) return -1;
+      return 0;
+    }
+    
     public static function randomFloor(num:Number):int
     {
         var floor:int = num | 0;
