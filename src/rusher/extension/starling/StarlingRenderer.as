@@ -1,9 +1,9 @@
 package rusher.extension.starling 
 {
-  import rusher.component.Transform2D;
   import rusher.data.InList;
   import rusher.data.InListIterator;
   import rusher.engine.System;
+  import rusher.transform.Transform2D;
   import starling.display.DisplayObject;
   import starling.display.DisplayObjectContainer;
 	

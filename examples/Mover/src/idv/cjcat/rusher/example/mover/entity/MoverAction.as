@@ -2,7 +2,7 @@ package rusher.example.mover.entity
 {
   import flash.display.Stage;
   import rusher.action.Action;
-  import rusher.component.Transform2D;
+  import rusher.transform.Transform2D;
   import rusher.input.Input;
   import rusher.input.Key;
   import rusher.utils.RusherMath;

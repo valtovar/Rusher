@@ -2,7 +2,7 @@ package rusher.example.mover.engine
 {
   import rusher.action.Action;
   import rusher.action.ActionComponent;
-  import rusher.component.Transform2D;
+  import rusher.transform.Transform2D;
   import rusher.engine.Engine;
   import rusher.engine.Entity;
   import rusher.example.mover.entity.MoverAction;

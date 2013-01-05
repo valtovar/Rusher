@@ -1,4 +1,4 @@
-package rusher.component 
+package rusher.transform 
 {
   import rusher.engine.Component;
   

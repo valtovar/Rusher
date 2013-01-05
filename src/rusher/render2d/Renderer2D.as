@@ -3,10 +3,10 @@ package rusher.render2d
   import flash.display.DisplayObject;
   import flash.display.DisplayObjectContainer;
   import flash.display.Stage;
-  import rusher.component.Transform2D;
   import rusher.data.InList;
   import rusher.data.InListIterator;
   import rusher.engine.System;
+  import rusher.transform.Transform2D;
   import rusher.utils.RusherMath;
 	
   public class Renderer2D extends System
