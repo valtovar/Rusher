@@ -1,0 +1,13 @@
+<extension xmlns="http://ns.adobe.com/air/extension/3.1">  
+    <id>com.rhuno.Airxbc</id>  
+    <versionNumber>1.0</versionNumber>  
+    <platforms>  
+        <platform name="Windows-x86">  
+            <applicationDeployment>  
+                <nativeLibrary>Airxbc.dll</nativeLibrary>  
+                <initializer>ExtInitializerAxbc</initializer>  
+                <finalizer>ExtFinalizerAxbc</finalizer>  
+            </applicationDeployment>  
+        </platform>  
+    </platforms>  
+</extension>  
