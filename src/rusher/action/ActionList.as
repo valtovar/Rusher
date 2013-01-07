@@ -224,6 +224,8 @@ package rusher.action
       var actionList:ActionList = new ActionList(true);
       for (var i:int = 0, len:int = actions.length; i < len; ++i)
       {
+        if (!action) continue;
+        
         var action:Action = actions[i];
         action.block();
         actionList.pushBack(action);
@@ -236,6 +238,8 @@ package rusher.action
       var actionList:ActionList = new ActionList(true);
       for (var i:int = 0, len:int = actions.length; i < len; ++i)
       {
+        if (!action) continue;
+        
         var action:Action = actions[i];
         action.unblock();
         actionList.pushBack(action);
