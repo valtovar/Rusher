@@ -18,6 +18,7 @@ package rusher.example.mover.engine
     {
       var mover:Entity = engine.createEntity("mover");
       mover.addComponent(ActionComponent, new MoverAction());
+      mover.addComponent(Transform2D);
       mover.addComponent(Renderable2D , new MoverShape());
       
       //complete after one update

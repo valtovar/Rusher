@@ -18,7 +18,7 @@ package rusher.example.mover.entity
     //get the stage instance
     [Inject] public var stage:Stage;
     
-    //100 pixels per second
+    //speed in pixels per second
     private static const SPEED:Number = 300.0;
     
     override public function update(dt:Number):void 
@@ -39,7 +39,7 @@ package rusher.example.mover.entity
       
       if (dx != 0.0 || dy != 0.0)
       {
-        transform.rotation = RusherMath.RADIAN_TO_DEGREE * Math.atan2(dy, dx) + 90;
+        transform.rotation = Math.atan2(dy, dx) + RusherMath.PI_2;
       }
       
       transform.x += dx * dt;
@@ -47,7 +47,7 @@ package rusher.example.mover.entity
       
       //bounds
       transform.x = RusherMath.clamp(transform.x, -0.5 * stage.stageWidth , 0.5 * stage.stageWidth );
-      transform.y = RusherMath.clamp(transform.y, -0.5 * stage.stageHeight + 40, 0.5 * stage.stageHeight - 40);
+      transform.y = RusherMath.clamp(transform.y, -0.5 * stage.stageHeight + 40.0, 0.5 * stage.stageHeight - 40.0);
     }
   }
 }
