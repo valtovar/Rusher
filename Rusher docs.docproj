@@ -5,5 +5,5 @@
   <sourcesList />
   <outputDirectory>docs</outputDirectory>
   <activeCompiler>1</activeCompiler>
-  <extraOptions>-doc-sources "src" -external-library-path+="libs/SwiftSuspenders-v2.0.0.swc" -external-library-path+="libs/as3-signals-v0.9-BETA.swc" -external-library-path+="libs/greensock.swc" -external-library-path+="libs/Starling-v1.1.swc"</extraOptions>
+  <extraOptions>-doc-sources "src" -external-library-path+="libs/SwiftSuspenders-v2.0.0.swc" -external-library-path+="libs/as3-signals-v0.9-BETA.swc" -external-library-path+="libs/greensock.swc" -external-library-path+="libs/Starling-v1.1.swc" -external-library-path+="libs/Airxbc.ane"</extraOptions>
 </docProject>

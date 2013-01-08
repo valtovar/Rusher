@@ -16,11 +16,46 @@ package rusher.action
     private var onFinished_ :ISignal = new Signal();
     private var onResumed_  :ISignal = new Signal();
     
+    /**
+     * Dispatched right before the action started.
+     * <p/>
+     * Listener signature: listener():void
+     */
     public function get onStarted  ():ISignal { return onStarted_  ; }
+    
+    /**
+     * Dispatched when the action completes.
+     * <p/>
+     * Listener signature: listener():void
+     */
     public function get onCompleted():ISignal { return onCompleted_; }
+    
+    /**
+     * Dispatched when the action is cancelled.
+     * <p/>
+     * Listener signature: listener():void
+     */
     public function get onCancelled():ISignal { return onCancelled_; }
+    
+    /**
+     * Dispatched right after onCompleted or onCancelled is dispatched.
+     * <p/>
+     * Listener signature: listener():void
+     */
     public function get onFinished ():ISignal { return onFinished_ ; }
+    
+    /**
+     * Dispatched when the action is paused.
+     * <p/>
+     * Listener signature: listener():void
+     */
     public function get onPaused   ():ISignal { return onPaused_   ; }
+    
+    /**
+     * Dispatched when the action is resumed (unpaused).
+     * <p/>
+     * Listener signature: listener():void
+     */
     public function get onResumed  ():ISignal { return onResumed_  ; }
     
     //-------------------------------------------------------------------------
@@ -53,8 +88,8 @@ package rusher.action
     public function update(dt:Number):void
     { }
     
-    public final function block   ():Action { isBlocking_  = true;  return this; }
-    public final function unblock ():Action { isBlocking_  = false; return this; }
+    public final function block  ():Action { isBlocking_  = true;  return this; }
+    public final function unblock():Action { isBlocking_  = false; return this; }
     
     public function Action(instantUpdate:Boolean = false)
     {
