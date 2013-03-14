@@ -25,14 +25,16 @@ package rusher.data
       return node.prev != list.head;
     }
     
-    public function first():void
+    public function first():InListIterator
     {
       node = list.head.next;
+      return this;
     }
     
-    public function last():void
+    public function last():InListIterator
     {
       node = list.tail.prev;
+      return this;
     }
     
     public function next():void

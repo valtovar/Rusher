@@ -4,11 +4,11 @@ package rusher.transform
   
   public class Transform2D extends Component
   {
-    public var x       :Number = 0.0;
-    public var y       :Number = 0.0;
-    public var rotation:Number = 0.0;
-    public var scaleX  :Number = 1.0;
-    public var scaleY  :Number = 1.0;
+    public var x       :Number;
+    public var y       :Number;
+    public var rotation:Number;
+    public var scaleX  :Number;
+    public var scaleY  :Number;
     
     public function Transform2D
     (

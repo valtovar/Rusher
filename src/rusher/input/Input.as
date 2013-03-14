@@ -3,6 +3,8 @@ package rusher.input
   import flash.display.Stage;
   import flash.events.KeyboardEvent;
   import flash.events.MouseEvent;
+  import flash.ui.GameInput;
+  import flash.ui.Mouse;
   import flash.utils.Dictionary;
   import rusher.engine.System;
   
@@ -111,6 +113,7 @@ package rusher.input
       stage_.addEventListener(MouseEvent.MOUSE_DOWN , onMouseDown , false, int.MAX_VALUE);
       stage_.addEventListener(MouseEvent.MOUSE_UP   , onMouseUp   , false, int.MAX_VALUE);
       stage_.addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel, false, int.MAX_VALUE);
+      stage_.addEventListener(MouseEvent.MOUSE_MOVE , onMouseMove , false, int.MAX_VALUE);
     }
     
     override public function dispose():void
@@ -156,8 +159,8 @@ package rusher.input
       //update mouse status
       mousePrevX_  = mouseX_;
       mousePrevY_  = mouseY_;
-      mouseX_      = stage_.mouseX;
-      mouseY_      = stage_.mouseY;
+      //mouseX_      = stage_.mouseX;
+      //mouseY_      = stage_.mouseY;
       mouseDeltaX_ = mouseX_ - mousePrevX_;
       mouseDeltaY_ = mouseY_ - mousePrevY_;
     }
@@ -205,6 +208,12 @@ package rusher.input
     private function onMouseWheel(e:MouseEvent):void
     {
       mouseWheel_ = e.delta;
+    }
+    
+    private function onMouseMove(e:MouseEvent):void
+    {
+      mouseX_ = e.stageX;
+      mouseY_ = e.stageY;
     }
   }
 }
