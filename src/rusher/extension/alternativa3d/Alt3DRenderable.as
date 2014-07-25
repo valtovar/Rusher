@@ -2,12 +2,18 @@ package rusher.extension.alternativa3d
 {
   import alternativa.engine3d.core.Object3D;
   import alternativa.engine3d.core.Resource;
+  import flash.display.Stage;
+  import flash.display.Stage3D;
   import rusher.engine.Component;
+  import rusher.transform.Transform3D;
   
   public class Alt3DRenderable extends Component
   {
     
     private var registered_:Boolean = false;
+    
+    private var stage_  :Stage   = null;
+    private var stage3D_:Stage3D = null;
     
     /** @private */
     internal var object_:Object3D;
@@ -35,7 +41,7 @@ package rusher.extension.alternativa3d
         for each (var resource:Resource in object_.getResources(true))
         {
           if (!resource.isUploaded)
-            resource.upload(renderer.stage3D_.context3D);
+            resource.upload(stage3D_.context3D);
         }
       }
     }
@@ -47,14 +53,37 @@ package rusher.extension.alternativa3d
     
     override public function init():void 
     {
-      Alt3DRenderer(getInstance(Alt3DRenderer)).register(this);
+      stage_ = getInstance(Stage);
+      stage3D_ = stage_.stage3Ds[0];
+      
+      Alt3DRenderer(getInstance(Alt3DRenderer)).registerRenderable(this);
       registered_ = true;
     }
     
     override public function dispose():void 
     {
-      Alt3DRenderer(getInstance(Alt3DRenderer)).unregister(this);
+      Alt3DRenderer(getInstance(Alt3DRenderer)).unregisterRenderable(this);
       registered_ = true;
+    }
+    
+    /** @private */
+    internal function update(dt:Number):void
+    {
+      if (object_)
+      {
+        updateResources();
+        
+        var transform:Transform3D = getInstance(Transform3D);
+        object_.x         = transform.x;
+        object_.y         = transform.y;
+        object_.z         = transform.z;
+        object_.rotationX = transform.rotationX;
+        object_.rotationY = transform.rotationY;
+        object_.rotationZ = transform.rotationZ;
+        object_.scaleX    = transform.scaleX;
+        object_.scaleY    = transform.scaleY;
+        object_.scaleZ    = transform.scaleZ;
+      }
     }
   }
 }

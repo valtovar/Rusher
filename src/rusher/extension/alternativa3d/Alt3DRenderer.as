@@ -16,24 +16,37 @@ package rusher.extension.alternativa3d
     private var camera_     :Alt3DCamera = null;
     private var root_       :Object3D    = null;
     private var renderables_:InList      = new InList();
+    private var lights_     :InList      = new InList();
     
     private var stage_  :Stage   = null;
+    private var stage3D_:Stage3D = null;
     
     /** @private */
-    internal var stage3D_:Stage3D = null;
-    
-    /** @private */
-    internal function register(target:Alt3DRenderable):void
+    internal function registerRenderable(renderable:Alt3DRenderable):void
     {
-      renderables_.pushBack(target);
-      root_.addChild(target.object_);
+      renderables_.pushBack(renderable);
+      root_.addChild(renderable.object_);
     }
     
     /** @private */
-    internal function unregister(target:Alt3DRenderable):void
+    internal function unregisterRenderable(renderable:Alt3DRenderable):void
     {
-      renderables_.remove(target);
-      root_.removeChild(target.object_);
+      renderables_.remove(renderable);
+      root_.removeChild(renderable.object_);
+    }
+    
+    /** @private */
+    internal function registerLight(light:Alt3DLight):void
+    {
+      lights_.pushBack(light);
+      root_.addChild(light.light_);
+    }
+    
+    /** @private */
+    internal function unregisterLight(light:Alt3DLight):void
+    {
+      lights_.remove(light);
+      root_.addChild(light.light_);
     }
     
     public function setCamera(camera:Alt3DCamera):void
@@ -75,40 +88,35 @@ package rusher.extension.alternativa3d
     override public function update(dt:Number):void 
     {
       if (!stage3D_)
+      {
         return;
+      }
       
       if (!camera_)
+      {
+        trace("WARNING - No active Alt3DCamera.");
         return;
+      }
         
-      var iter:InListIterator = renderables_.getIterator();
+      var iter:InListIterator;
         
       var renderable:Alt3DRenderable;
+      iter = renderables_.getIterator();
       while (renderable = iter.data())
       {
-        var object:Object3D = renderable.object_;
-        if (object)
-        {
-          renderable.updateResources();
-          
-          var transform:Transform3D = renderable.getInstance(Transform3D);
-          object.x         = transform.x;
-          object.y         = transform.y;
-          object.z         = transform.z;
-          object.rotationX = transform.rotationX;
-          object.rotationY = transform.rotationY;
-          object.rotationZ = transform.rotationZ;
-          object.scaleX    = transform.scaleX;
-          object.scaleY    = transform.scaleY;
-          object.scaleZ    = transform.scaleZ;
-        }
-        
+        renderable.update(dt);
+        iter.next();
+      }
+      
+      var light:Alt3DLight
+      iter = lights_.getIterator();
+      while (light = iter.data())
+      {
+        light.update(dt);
         iter.next();
       }
       
       camera_.update(dt);
-      camera_.camera_.view.width  = stage_.stageWidth;
-      camera_.camera_.view.height = stage_.stageHeight;
-      camera_.camera_.render(stage3D_);
     }
   }
 }

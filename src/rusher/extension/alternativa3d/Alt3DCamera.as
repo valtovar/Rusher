@@ -3,6 +3,7 @@ package rusher.extension.alternativa3d
   import alternativa.engine3d.core.Camera3D;
   import alternativa.engine3d.core.View;
   import flash.display.Stage;
+  import flash.display.Stage3D;
   import rusher.engine.Component;
   import rusher.transform.Transform3D;
   
@@ -16,6 +17,9 @@ package rusher.extension.alternativa3d
     public var target:Transform3D = null;
     public var fov:Number;
     public var orthographic:Boolean;
+    
+    private var stage_  :Stage = null;
+    private var stage3D_:Stage3D = null;
     
     public function Alt3DCamera(near:Number = 0.1, far:Number = 10000.0)
     {
@@ -34,11 +38,12 @@ package rusher.extension.alternativa3d
     
     override public function init():void 
     {
-      var stage:Stage = getInstance(Stage);
+      stage_   = getInstance(Stage);
+      stage3D_ = stage_.stage3Ds[0];
       
-      camera_.view = new View(stage.stageWidth, stage.stageHeight);
-      camera_.view.antiAlias = 4;
-      //camera_.view.hideLogo();
+      camera_.view = new View(stage_.stageWidth, stage_.stageHeight);
+      camera_.view.antiAlias = 2;
+      camera_.view.hideLogo();
     }
     
     /** @private */
@@ -60,6 +65,10 @@ package rusher.extension.alternativa3d
       {
         camera_.lookAt(target.x, target.y, target.z);
       }
+      
+      camera_.view.width  = stage_.stageWidth;
+      camera_.view.height = stage_.stageHeight;
+      camera_.render(stage3D_);
     }
   }
 }
